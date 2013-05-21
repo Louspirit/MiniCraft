@@ -1,0 +1,9 @@
+﻿Sprint 1 :
+
+* L'utilisateur doit obtenir une fenetre avec un monde plat.
+* L'utilisateur doit "être à la 1ère personne".
+* L'utilisateur doit pouvoir se déplacer au sol.
+* L'utilisateur doit pouvoir ajouter des blocs.
+* L'utilisateur doit pouvoir enlever des blocs.
+* L'utilisateur ne doit pas pouvoir traverser les blocs.
+* L'utilisateur doit pouvoir choisir différents types de blocs.
