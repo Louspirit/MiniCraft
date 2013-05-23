@@ -1,5 +1,7 @@
 ﻿Sprint 1 :
 
+Par ordre de priorité :
+
 * L'utilisateur doit obtenir une fenetre avec un monde plat.
 * L'utilisateur doit "être à la 1ère personne".
 * L'utilisateur doit pouvoir se déplacer au sol.
