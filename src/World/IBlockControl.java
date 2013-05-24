@@ -7,9 +7,10 @@ package World;
  * Interface de gestion des blocs
  * 
  */
-public interface IBlocControl {
+public interface IBlockControl {
 	
-	// public void putBloc(coordonnee);
 	// public void removeBloc();
-
+	
+	public void put(Block block, Location location);
+	
 }
