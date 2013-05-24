@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Player;
+package minicraft.player;
 
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
