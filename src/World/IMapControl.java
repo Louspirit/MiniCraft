@@ -2,6 +2,8 @@ package World;
 
 import com.jme3.scene.Node;
 
+import fenetre.Minicraft;
+
 /**
  * 
  * @author Benjamin
@@ -11,7 +13,7 @@ import com.jme3.scene.Node;
  */
 public interface IMapControl {
 	
-	public void init();
+	public void init(Minicraft minicraft);
 	public Node generateMap(int longueur, int largeur, int hauteur);
 
 }
