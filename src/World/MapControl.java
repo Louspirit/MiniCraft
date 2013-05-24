@@ -6,6 +6,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture;
 
 import fenetre.Minicraft;
 
@@ -28,7 +29,8 @@ public class MapControl implements IMapControl {
     	        geom.setLocalTranslation(i, 0, j);
     	        Material mat = new Material(minicraft.getAssetManager(),
     	          "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-    	        mat.setColor("Color", ColorRGBA.Green);   // set color of material to blue
+    	        Texture tex_ml = minicraft.getAssetManager().loadTexture("Textures/grass.jpg"); // set the texture 
+    	        mat.setTexture("ColorMap", tex_ml);
     	        geom.setMaterial(mat);                   // set the cube's material
     	        carte.attachChild(geom);
     		}
