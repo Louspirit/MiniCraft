@@ -29,7 +29,7 @@ public class MapControl implements IMapControl {
     	        geom.setLocalTranslation(i, 0, j);
     	        Material mat = new Material(minicraft.getAssetManager(),
     	          "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-    	        Texture tex_ml = minicraft.getAssetManager().loadTexture("Textures/grass.jpg"); // set the texture 
+    	        Texture tex_ml = minicraft.getAssetManager().loadTexture("Textures/beton.jpg"); // set the texture 
     	        mat.setTexture("ColorMap", tex_ml);
     	        geom.setMaterial(mat);                   // set the cube's material
     	        carte.attachChild(geom);
