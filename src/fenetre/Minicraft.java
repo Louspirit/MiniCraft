@@ -10,23 +10,25 @@ import com.jme3.bullet.BulletAppState;
 public class Minicraft extends SimpleApplication {
 	
 	private IMapControl mapControl;
+	
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	
 	@Override
 	public void simpleInitApp() {
-		/** Initialise la physique (collisions) */
-	    bulletAppState = new BulletAppState();
-	    stateManager.attach(bulletAppState);
-	    /** En cas de débugage **/
-	    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 	    
 		mapControl = new MapControl();
 		mapControl.init(this);
 		flyCam.setMoveSpeed(80);
 		Node carte = mapControl.generateMap(16, 16, 1);
 		rootNode.attachChild(carte);		
-		
+	    
+		/** Initialise la physique (collisions) */
+	    bulletAppState = new BulletAppState();
+	    stateManager.attach(bulletAppState);
+	    /** En cas de débugage **/
+	    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
+	    
 	}
 
 	/**
