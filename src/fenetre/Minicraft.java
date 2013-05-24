@@ -6,8 +6,7 @@ public class Minicraft extends SimpleApplication {
 
 	@Override
 	public void simpleInitApp() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/**
