@@ -1,7 +1,7 @@
 Minicraft
 =========
 
-Projet du jeu Mincraft.
+Projet du jeu Minicraft.
 
 Requis :
 --------
