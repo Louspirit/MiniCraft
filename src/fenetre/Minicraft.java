@@ -1,15 +1,29 @@
 package fenetre;
 
+import World.IMapControl;
+import World.MapControl;
+
 import com.jme3.app.SimpleApplication;
+import com.jme3.scene.Node;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 
 public class Minicraft extends SimpleApplication {
+	
+	private IMapControl mapControl;
+	
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	
 	@Override
 	public void simpleInitApp() {
+	    
+		mapControl = new MapControl();
+		mapControl.init(this);
+		flyCam.setMoveSpeed(80);
+		Node carte = mapControl.generateMap(16, 16, 1);
+		rootNode.attachChild(carte);		
+	    
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
 	    stateManager.attach(bulletAppState);
@@ -27,6 +41,7 @@ public class Minicraft extends SimpleApplication {
 		minicraft.start();
 	}
 
+
 	private BetterCharacterControl createPlayer()
 	{
 		// Utilisation de BetterCharacterControl pour la forme du joueur 
@@ -35,4 +50,6 @@ public class Minicraft extends SimpleApplication {
 		
 		return player;
 	}
+}
+
 }
