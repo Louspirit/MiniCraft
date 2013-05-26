@@ -26,8 +26,12 @@ public class MapControl implements IMapControl {
 	
 	public Node generateMap(int longueur, int largeur, int hauteur) {
 	 	map = new Node();
+	 	BlockFactory blockFactory = new BlockFactory(minicraft.getAssetManager());
+	 	Block block;
+	 	Geometry geometry;
     	for (int i=1 ; i < longueur ; i++ ) {
     		for (int j = 1 ; j < largeur ; j++) {
+    			/*
     	        Box b = new Box(Vector3f.ZERO, 0.5f, 0.5f, 0.5f); // create cube shape at the origin
     	        Geometry geom = new Geometry("Box", b);  // create cube geometry from the shape
     	        geom.setLocalTranslation(i, 0, j);
@@ -36,7 +40,11 @@ public class MapControl implements IMapControl {
     	        Texture tex_ml = minicraft.getAssetManager().loadTexture("Textures/beton.jpg"); // set the texture 
     	        mat.setTexture("ColorMap", tex_ml);
     	        geom.setMaterial(mat);                   // set the cube's material
-    	        map.attachChild(geom);
+    	        */
+    			block = blockFactory.createBlock(BlockType.Dirt);
+    			geometry = block.getGeometry();
+    			geometry.setLocalTranslation(i, 0, j);
+    	        map.attachChild(geometry);
     	        cartoMap[i][0][j] = true;
     		}
     	}
