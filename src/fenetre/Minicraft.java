@@ -2,6 +2,7 @@ package fenetre;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.control.BetterCharacterControl;
 
 public class Minicraft extends SimpleApplication {
 	// Gestion de la physique
@@ -26,4 +27,12 @@ public class Minicraft extends SimpleApplication {
 		minicraft.start();
 	}
 
+	private BetterCharacterControl createPlayer()
+	{
+		// Utilisation de BetterCharacterControl pour la forme du joueur 
+		// et pour gérer sa physique
+		BetterCharacterControl player = new BetterCharacterControl(1.5f, 6f, 30);
+		
+		return player;
+	}
 }
