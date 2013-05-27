@@ -15,15 +15,21 @@ public class BlockFactory {
 	}
 	
 	public Block createBlock(BlockType type, Vector3f coord) {
-		Block block = null;
+		String blockTexture = "";
 		
 		switch (type) {
 			case Concrete:
-				block = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + "beton.jpg"), coord);
+				blockTexture = "beton.jpg";
+				break;
+			case Dirt:
+				blockTexture = "terre.jpg";
+				break;
+			case Grass:
+				blockTexture = "grass.jpg";
 				break;
 		}
 		
-		return block;
+		return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + blockTexture), coord);
 	}
 	
 }
