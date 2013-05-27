@@ -24,6 +24,8 @@ public class Minicraft extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 	    
+		initCam();	
+
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
 	    stateManager.attach(bulletAppState);
@@ -38,10 +40,15 @@ public class Minicraft extends SimpleApplication {
 	    		
 		
 
-	    
 	    playerControl = new PlayerControl(cam);
 	    setUpKeys();
+
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
+	}
+	
+	private void initCam() {
+		cam.setLocation(new Vector3f(8, 2, 8));
+		flyCam.setMoveSpeed(40);
 	}
 
 	/**

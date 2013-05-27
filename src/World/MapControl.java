@@ -58,5 +58,4 @@ public class MapControl implements IMapControl {
         cartoMap.put(coord, bloc);
 		map.attachChild(bloc.getGeometry());
 	}
-
 }

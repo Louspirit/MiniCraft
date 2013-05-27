@@ -18,7 +18,7 @@ public class BlockFactory {
 		Block block = null;
 		
 		switch (type) {
-			case Dirt:
+			case Concrete:
 				block = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + "beton.jpg"), coord);
 				break;
 		}
