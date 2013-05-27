@@ -66,6 +66,7 @@ public class MapControl implements IMapControl {
 		cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = bloc;
       //  cartoMap.put(coord, bloc);
 		map.attachChild(bloc.getGeometry());
+		appState.getPhysicsSpace().add(bloc.getBlocScape());
 	}
 	
 	public Block getBlock(Vector3f coord) {
