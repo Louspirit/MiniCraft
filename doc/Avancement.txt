@@ -1,0 +1,20 @@
+PROJET MINICRAFT
+
+---
+
+AVANCEMENT DU PROJET
+SPRINT 1 – Du 15/05/13 au 29/05/13
+
+* Le 21/05/13
+Le partage des sources est disponible sur GitHub à l’adresse suivante :
+https://github.com/Louspirit/MiniCraft
+Le dépôt contient également tous les documents relatifs au projet (graphes agiles, rapport
+d’avancement, tutoriel, etc…).
+Pour l’heure un fichier Minicraft.java contient le main.  Lancer le programme ouvre une fenêtre
+JMonkeyEngine  toute simple (écran noir).
+
+* Le 24/05/13
+L’architecture a été mise en place. Un nœud carte est ajouté au nœud racine. Sur le nœud est ajouté
+un nœud monde qui représentera la carte de base ( sur laquelle le joueur ne pourra pas interagir).
+Les autres éléments tels que les blocs posés par le joueur ou les blocs stockés dans des macros
+seront également des enfants attachés au nœud carte. 

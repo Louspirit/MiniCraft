@@ -1,16 +1,29 @@
 package World;
 
+import util.BlockType;
+import util.Constant;
+
+import com.jme3.asset.AssetManager;
+import com.jme3.math.Vector3f;
+
 public class BlockFactory {
 	
-	public static Block createBlock(BlockType type) {
+	private AssetManager assetManager;
+	
+	public BlockFactory(AssetManager assetManager) {
+		this.assetManager = assetManager;
+	}
+	
+	public Block createBlock(BlockType type, Vector3f coord) {
+		Block block = null;
 		
 		switch (type) {
-		case Dirt:
-			
-			break;
+			case Dirt:
+				block = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + "beton.jpg"), coord);
+				break;
 		}
 		
-		return null;
+		return block;
 	}
 	
 }

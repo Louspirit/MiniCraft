@@ -1,5 +1,9 @@
 package World;
 
+import java.util.HashMap;
+
+import util.BlockType;
+
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -14,43 +18,42 @@ import fenetre.Minicraft;
 public class MapControl implements IMapControl {
 	
 	private Minicraft minicraft;
-	private Boolean[][][] cartoMap;
+	private HashMap<Vector3f, Block> cartoMap;
 	public Node map;
 
 	
 	public void init(Minicraft minicraft) {
 		this.minicraft = minicraft;
-		cartoMap = new Boolean[100][100][100];
+		cartoMap = new HashMap<Vector3f, Block>();
 	}
 
 	
 	public Node generateMap(int longueur, int largeur, int hauteur) {
 	 	map = new Node();
+	 	BlockFactory blockFactory = new BlockFactory(minicraft.getAssetManager());
     	for (int i=1 ; i < longueur ; i++ ) {
     		for (int j = 1 ; j < largeur ; j++) {
-    	        Box b = new Box(Vector3f.ZERO, 0.5f, 0.5f, 0.5f); // create cube shape at the origin
-    	        Geometry geom = new Geometry("Box", b);  // create cube geometry from the shape
-    	        geom.setLocalTranslation(i, 0, j);
-    	        Material mat = new Material(minicraft.getAssetManager(),
-    	          "Common/MatDefs/Misc/Unshaded.j3md");  // create a simple material
-    	        Texture tex_ml = minicraft.getAssetManager().loadTexture("Textures/beton.jpg"); // set the texture 
-    	        mat.setTexture("ColorMap", tex_ml);
-    	        geom.setMaterial(mat);                   // set the cube's material
-    	        map.attachChild(geom);
-    	        cartoMap[i][0][j] = true;
+    			Vector3f coord = new Vector3f(i, 0, j);
+    			Block block = blockFactory.createBlock(BlockType.Dirt, coord);
+    	        map.attachChild(block.getGeometry());
+    	        cartoMap.put(coord, block);
     		}
     	}
     	return map;
 	}
 
-	public boolean isBloc(int x, int y, int z) {
-		return cartoMap[x][y][z];
+	public boolean existBloc(int x, int y, int z) {
+		return (cartoMap.get(new Vector3f(x,y,z))!=null);
 	}
 	
-	public void createBloc(Spatial bloc) {
-		Vector3f coord = bloc.getLocalTranslation();
-		cartoMap[(int)coord.getX()][(int)coord.getY()][(int)coord.getZ()] = true;
-		map.attachChild(bloc);
+	public boolean existBloc(Vector3f coord) {
+		return (cartoMap.get(coord)!=null);
+	}
+	
+	public void attachBloc(Block bloc) {
+		Vector3f coord = bloc.getGeometry().getLocalTranslation();
+        cartoMap.put(coord, bloc);
+		map.attachChild(bloc.getGeometry());
 	}
 
 }

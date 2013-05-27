@@ -2,10 +2,13 @@ package fenetre;
 
 import Player.IPlayerControl;
 import Player.PlayerControl;
+
+import World.Block;
 import World.IMapControl;
 import World.MapControl;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.KeyInput;
@@ -23,10 +26,10 @@ public class Minicraft extends SimpleApplication {
 	    
 		mapControl = new MapControl();
 		mapControl.init(this);
-		flyCam.setMoveSpeed(80);
+		flyCam.setMoveSpeed(40);
 		Node carte = mapControl.generateMap(16, 16, 1);
 		rootNode.attachChild(carte);		
-	    
+	    		
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
 	    stateManager.attach(bulletAppState);
