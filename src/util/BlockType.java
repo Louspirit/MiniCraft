@@ -2,6 +2,6 @@ package util;
 
 public enum BlockType {
 	
-	Dirt
+	Concrete, Dirt, Grass
 	
 }

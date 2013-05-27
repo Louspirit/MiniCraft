@@ -46,7 +46,7 @@ public class Minicraft extends SimpleApplication {
 		
 	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
 	    initKeys();       // load custom key mappings
-	    		
+	    			    
 		initCam();	
 
 		/** Initialise la physique (collisions) */
@@ -59,10 +59,8 @@ public class Minicraft extends SimpleApplication {
 		mapControl.init(this, bulletAppState);
 		flyCam.setMoveSpeed(10);
 		Node map = mapControl.generateMap(16, 16, 1);
-		rootNode.attachChild(map);		
-	    		
+		rootNode.attachChild(map);					
 		
-
 	    playerControl = new PlayerControl(cam);
 	    setUpKeys();
 

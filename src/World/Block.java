@@ -43,5 +43,4 @@ public class Block {
 	public Vector3f getCoord() {
 		return coord;
 	}
-	
 }
