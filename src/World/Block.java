@@ -10,11 +10,12 @@ import com.jme3.texture.Texture;
 public class Block {
 	
 	private Geometry geometry;
+	private Vector3f coord;
 
-	public Block(AssetManager assetManager, Texture texture) {
+	public Block(AssetManager assetManager, Texture texture, Vector3f coord) {
 		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 		material.setTexture("ColorMap", texture);
-		geometry = new Geometry("Box", new Box(Vector3f.ZERO, 0.5f, 0.5f, 0.5f));
+		geometry = new Geometry("Box", new Box(coord, 0.5f, 0.5f, 0.5f));
 		geometry.setMaterial(material);
 	}
 	

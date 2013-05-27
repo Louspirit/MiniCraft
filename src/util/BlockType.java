@@ -1,4 +1,4 @@
-package World;
+package util;
 
 public enum BlockType {
 	
