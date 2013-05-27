@@ -40,13 +40,7 @@ public class Minicraft extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		
-	    initCrossHairs(); // a "+" in the middle of the screen to help aiming
-		
-		blockControl = new BlockControl(mapControl, this);
-		
-	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
-	    initKeys();       // load custom key mappings
-	    			    
+	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();	
 
 		/** Initialise la physique (collisions) */
@@ -59,10 +53,15 @@ public class Minicraft extends SimpleApplication {
 		mapControl.init(this, bulletAppState);
 		flyCam.setMoveSpeed(10);
 		Node map = mapControl.generateMap(16, 16, 1);
-		rootNode.attachChild(map);					
+		rootNode.attachChild(map);	
+		
+		blockControl = new BlockControl(mapControl, this);
 		
 	    playerControl = new PlayerControl(cam);
 	    setUpKeys();
+	    
+	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
+	    initKeys();       // load custom key mappings
 
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	}
@@ -119,7 +118,6 @@ public class Minicraft extends SimpleApplication {
   /** Declaring the "Shoot" action and mapping to its triggers. */
   private void initKeys() {
     inputManager.addMapping("Add",
-      new KeyTrigger(KeyInput.KEY_SPACE), // trigger 1: spacebar
       new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
     inputManager.addListener(actionListener, "Add");
     inputManager.addMapping("Delete",
