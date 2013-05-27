@@ -12,5 +12,7 @@ public interface IBlockControl {
 	// public void removeBloc();
 	
 	public void put(Block block, Location location);
+	public void newBlocNextTo(Block bloc, String direction);
+	public boolean deleteBloc(Block bloc);
 	
 }
