@@ -34,7 +34,7 @@ public class MapControl implements IMapControl {
     	for (int i=1 ; i < longueur ; i++ ) {
     		for (int j = 1 ; j < largeur ; j++) {
     			Vector3f coord = new Vector3f(i, 0, j);
-    			Block block = blockFactory.createBlock(BlockType.Dirt, coord);
+    			Block block = blockFactory.createBlock(BlockType.Concrete, coord);
     	        map.attachChild(block.getGeometry());
     	        cartoMap.put(coord, block);
     		}
