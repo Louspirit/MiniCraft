@@ -24,23 +24,23 @@ public class Minicraft extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 	    
-		mapControl = new MapControl();
-		mapControl.init(this);
-		flyCam.setMoveSpeed(40);
-		Node carte = mapControl.generateMap(16, 16, 1);
-		rootNode.attachChild(carte);		
-	    		
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
 	    stateManager.attach(bulletAppState);
 	    /** En cas de débugage **/
 	    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
-	    setUpKeys();
+		
+		mapControl = new MapControl();
+		mapControl.init(this, bulletAppState);
+		flyCam.setMoveSpeed(10);
+		Node carte = mapControl.generateMap(16, 16, 1);
+		rootNode.attachChild(carte);		
+	    		
+		
+
 	    
 	    playerControl = new PlayerControl(cam);
-	    
-	    // A décommenter lorsque la cate sera solide
-	   // bulletAppState.getPhysicsSpace().add(carte);
+	    setUpKeys();
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	}
 
@@ -72,7 +72,7 @@ public class Minicraft extends SimpleApplication {
   @Override
   public void simpleUpdate(float tpf)
   {
-	  //playerControl.walk();
+	  playerControl.walk();
   }
 
 }

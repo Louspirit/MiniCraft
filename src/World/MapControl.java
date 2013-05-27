@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import util.BlockType;
 
+import com.jme3.bullet.BulletAppState;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -20,11 +21,12 @@ public class MapControl implements IMapControl {
 	private Minicraft minicraft;
 	private HashMap<Vector3f, Block> cartoMap;
 	public Node map;
-
+	private BulletAppState appState;
 	
-	public void init(Minicraft minicraft) {
+	public void init(Minicraft minicraft, BulletAppState appState) {
 		this.minicraft = minicraft;
 		cartoMap = new HashMap<Vector3f, Block>();
+		this.appState = appState;
 	}
 
 	
@@ -35,6 +37,7 @@ public class MapControl implements IMapControl {
     		for (int j = 1 ; j < largeur ; j++) {
     			Vector3f coord = new Vector3f(i, 0, j);
     			Block block = blockFactory.createBlock(BlockType.Dirt, coord);
+    			appState.getPhysicsSpace().add(block.getBlocScape());
     	        map.attachChild(block.getGeometry());
     	        cartoMap.put(coord, block);
     		}
