@@ -29,9 +29,10 @@ public class BlockControl implements IBlockControl {
 	}
 
 	@Override
-	public void newBlocNextTo(Block bloc, String direction) {
+	public void newBlocNextTo(Block bloc, Vector3f direction) {
 	     Vector3f coord =  bloc.getCoord();
-         Vector3f coordNewBloc = new Vector3f(coord.getX()+1,coord.getY()+1,coord.getZ()+1);
+         Vector3f coordNewBloc = new Vector3f(
+        		 coord.getX()+direction.x,coord.getY()+direction.y,coord.getZ()+direction.z);
          mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + "grass.jpg"), coordNewBloc));    
 	}
 	
