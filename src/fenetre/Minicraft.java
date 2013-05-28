@@ -1,9 +1,11 @@
 package fenetre;
 
 import listener.BlocListener;
+import listener.SettingListener;
 import util.Constant;
 import Player.IPlayerControl;
 import Player.PlayerControl;
+import Player.PlayerSettingChoice;
 
 import World.Block;
 import World.BlockControl;
@@ -23,6 +25,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
 public class Minicraft extends SimpleApplication {
@@ -36,12 +39,15 @@ public class Minicraft extends SimpleApplication {
 	  
 	 /** Defining the "Shoot" action: Determine what was hit and how to respond. */
 	 private BlocListener actionListener;
+	 // Listener pour les paramètres en cours (type de bloc, type de structure etc...)
+	 private SettingListener settingListener;
 	
 	@Override
 	public void simpleInitApp() {
 		
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();	
+		PlayerSettingChoice.init();
 
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
@@ -59,7 +65,9 @@ public class Minicraft extends SimpleApplication {
 		
 	    playerControl = new PlayerControl(cam);
 	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
+	    settingListener = new SettingListener();
 	    setUpKeys();
+	    
 	    
 
 
@@ -89,6 +97,8 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));
 	    inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
 	    inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+	    inputManager.addMapping("SwitchBlocUp", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,false));
+	    inputManager.addMapping("SwitchBlocDown", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,true));
 
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
 	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
@@ -101,6 +111,9 @@ public class Minicraft extends SimpleApplication {
 	    
 	    inputManager.addListener(actionListener, "Add");
 	    inputManager.addListener(actionListener, "Delete");
+	    
+	    inputManager.addListener(settingListener, "SwitchBlocUp");
+	    inputManager.addListener(settingListener, "SwitchBlocDown");
 	  }
 
   @Override

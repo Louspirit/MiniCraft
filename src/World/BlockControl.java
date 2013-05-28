@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import util.Constant;
 
+import Player.PlayerSettingChoice;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
@@ -33,7 +35,7 @@ public class BlockControl implements IBlockControl {
 	     Vector3f coord =  bloc.getCoord();
          Vector3f coordNewBloc = new Vector3f(
         		 coord.getX()+direction.x,coord.getY()+direction.y,coord.getZ()+direction.z);
-         mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + "grass.jpg"), coordNewBloc));    
+         mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), coordNewBloc));    
 	}
 	
 	public boolean deleteBloc(Block bloc) {
