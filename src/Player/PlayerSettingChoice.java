@@ -22,13 +22,14 @@ public class PlayerSettingChoice {
 		if (currentBlocType<listeTypeBloc.length-1) {
 			currentBlocType++;
 		}
-		
+		System.out.println("Bloc selectionnee : " + getTypeBloc());		
 	}
 	
 	public static void setPreviousBlocType() {
 		if (currentBlocType>0) {
 			currentBlocType--;
 		}
+		System.out.println("Bloc selectionnee : " + getTypeBloc());
 	}
 	
 	public static String getTypeBloc() {
