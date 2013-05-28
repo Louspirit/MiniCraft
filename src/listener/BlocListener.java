@@ -74,14 +74,12 @@ public class BlocListener implements ActionListener {
 		 direction.x = calculXYZ(coord.x);
 		 direction.y = calculXYZ(coord.y);
 		 direction.z = calculXYZ(coord.z);
-		 System.out.println(coord + " - "+direction);
 		return direction;
 	}
 	
 	
 	private int calculXYZ(float coord)
 	{
-		System.out.println(arrondi(coord,2));
 		if(arrondi(coord,2) == 0.5) return -1;
 		else if(arrondi(coord,2) == -0.5) return 1;
 		return 0;

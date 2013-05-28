@@ -63,10 +63,16 @@ public class MapControl implements IMapControl {
 	
 	public void attachBloc(Block bloc) {
 		Vector3f coord = bloc.getCoord();
+		try{
 		cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = bloc;
       //  cartoMap.put(coord, bloc);
 		map.attachChild(bloc.getGeometry());
 		appState.getPhysicsSpace().add(bloc.getBlocScape());
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println(e);
+		}
 	}
 	
 	public Block getBlock(Vector3f coord) {
@@ -81,6 +87,7 @@ public class MapControl implements IMapControl {
 		Vector3f coord = bloc.getCoord();
 		if (existBloc(coord)) {
 			map.detachChild(bloc.getGeometry());
+			appState.getPhysicsSpace().remove(bloc.getBlocScape());
 			cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = null;
 			return true;
 		} else {
