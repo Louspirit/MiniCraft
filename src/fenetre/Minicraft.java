@@ -68,14 +68,12 @@ public class Minicraft extends SimpleApplication {
 	    settingListener = new SettingListener();
 	    setUpKeys();
 	    
-	    
-
-
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	}
 	
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
+		cam.setFrustumPerspective(45, (float) cam.getWidth() / cam.getHeight(), 0.01f, 1000);
 		flyCam.setMoveSpeed(40);
 	}
 
