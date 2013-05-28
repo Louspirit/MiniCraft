@@ -58,10 +58,10 @@ public class Minicraft extends SimpleApplication {
 		blockControl = new BlockControl(mapControl, this);
 		
 	    playerControl = new PlayerControl(cam);
+	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
 	    setUpKeys();
 	    
-	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
-	    initKeys();       // load custom key mappings
+
 
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	}
@@ -89,11 +89,18 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));
 	    inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
 	    inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+
+	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
+	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
+	    
 	    inputManager.addListener(playerControl, "Left");
 	    inputManager.addListener(playerControl, "Right");
 	    inputManager.addListener(playerControl, "Up");
 	    inputManager.addListener(playerControl, "Down");
 	    inputManager.addListener(playerControl, "Jump");
+	    
+	    inputManager.addListener(actionListener, "Add");
+	    inputManager.addListener(actionListener, "Delete");
 	  }
 
   @Override
@@ -114,18 +121,6 @@ public class Minicraft extends SimpleApplication {
       settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
     guiNode.attachChild(ch);
   }
-  
-  /** Declaring the "Shoot" action and mapping to its triggers. */
-  private void initKeys() {
-    inputManager.addMapping("Add",
-      new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); // trigger 2: left-button click
-    inputManager.addListener(actionListener, "Add");
-    inputManager.addMapping("Delete",
-    	      new KeyTrigger(KeyInput.KEY_DELETE), // trigger 1: spacebar
-    	      new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); // trigger 2: left-button click
-    	    inputManager.addListener(actionListener, "Delete");
-  }
-
 }
 
 
