@@ -1,20 +1,15 @@
 PROJET MINICRAFT
-
----
-
+ – 
 AVANCEMENT DU PROJET
-SPRINT 1 � Du 15/05/13 au 29/05/13
+SPRINT 1 – Du 15/05/13 au 29/05/13
+•	Le 21/05/13
+Le partage des sources est disponible sur GitHub à l’adresse suivante : https://github.com/Louspirit/MiniCraft
+Le dépôt contient également tous les documents relatifs au projet (graphes agiles, rapport d’avancement, tutoriel, etc…).
+Pour l’heure un fichier Minicraft.java contient le main.  Lancer le programme ouvre une fenêtre JMonkeyEngine  toute simple (écran noir).
+•	Le 24/05/13
+L’architecture a été mise en place. Un nœud carte est ajouté au nœud racine. Sur le nœud est ajouté un nœud monde qui représentera la carte de base ( sur laquelle le joueur ne pourra pas interagir). Les autres éléments tels que les blocs posés par le joueur ou les blocs stockés dans des macros seront également des enfants attachés au nœud carte. 
+•	Le 27/05/13
+Le monde plat est disponible (pour l’instant 16x16 cubes). Les textures des cubes sont personnalisables via l’AssetManager (voir assets/Textures). La gravité a été mise en place, le joueur peut marcher en vue FPS. Le système de collision a été mis en place(à corriger on traverse un peu le bloc). Des blocs peuvent être ajouté mais les coordonnées sont encore indécises.
+•	Le 28/05/13
+Il est possible à présent de sauter. Il est également possible de retirer des blocs. Les coordonnées pour ajouter et retirer des blocs sont à présent conformes à l’endroit cliqué. On peut ajouter des blocs en cliquant sur des zones accolées à un bloc existant. La portée pour ajouter et retirer des blocs a été ajustée (pour ne pas agir de loin). Reste à régler le problème de collision (on voit légèrement à travers les blocs). 
 
-* Le 21/05/13
-Le partage des sources est disponible sur GitHub � l�adresse suivante :
-https://github.com/Louspirit/MiniCraft
-Le d�p�t contient �galement tous les documents relatifs au projet (graphes agiles, rapport
-d�avancement, tutoriel, etc�).
-Pour l�heure un fichier Minicraft.java contient le main.  Lancer le programme ouvre une fen�tre
-JMonkeyEngine  toute simple (�cran noir).
-
-* Le 24/05/13
-L�architecture a �t� mise en place. Un n�ud carte est ajout� au n�ud racine. Sur le n�ud est ajout�
-un n�ud monde qui repr�sentera la carte de base ( sur laquelle le joueur ne pourra pas interagir).
-Les autres �l�ments tels que les blocs pos�s par le joueur ou les blocs stock�s dans des macros
-seront �galement des enfants attach�s au n�ud carte. 
