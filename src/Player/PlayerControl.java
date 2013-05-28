@@ -26,12 +26,12 @@ public class PlayerControl implements IPlayerControl {
 		this.cam = camera;
 		// Utilisation de BetterCharacterControl pour la forme du joueur 
 		// et pour gérer sa physique
-		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.5f, 2f, 1);
-	    player = new CharacterControl(capsuleShape, 0.05f);
+		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.45f, 1.95f, 1);
+	    player = new CharacterControl(capsuleShape, 0.015f);
 	    player.setJumpSpeed(20);
 	    player.setFallSpeed(10);
 	    player.setGravity(70);
-	    player.setPhysicsLocation(new Vector3f(4, 10, 4));
+	    player.setPhysicsLocation(new Vector3f(4, 5, 4));
 
 	}
 	
@@ -67,14 +67,6 @@ public class PlayerControl implements IPlayerControl {
 	    player.setWalkDirection(walkDirection);
 	    cam.setLocation(player.getPhysicsLocation());
 	}
-
-
-
-	@Override
-	public Vector3f getPhysicLocation() {
-		return player.getPhysicsLocation();
-	}
-
 
 
 	@Override

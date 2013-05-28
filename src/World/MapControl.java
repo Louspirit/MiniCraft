@@ -42,10 +42,8 @@ public class MapControl implements IMapControl {
     		for (int j = 1 ; j < largeur ; j++) {
     			Vector3f coord = new Vector3f(i, 0, j);
     			Block block = blockFactory.createBlock(BlockType.Dirt, coord);
-    	        map.attachChild(block.getGeometry());
-    			appState.getPhysicsSpace().add(block.getBlocScape());
-    	        //cartoMap.put(new Integer{1}{2}{4}, block);
-    	        cartoMap[i][0][j] = block;
+
+    			this.attachBloc(block);
     		}
     	}
     	return map;
@@ -53,21 +51,20 @@ public class MapControl implements IMapControl {
 
 	public boolean existBloc(int x, int y, int z) {
 		return cartoMap[x][y][z] != null;
-		//return (cartoMap.get(new Vector3f(x,y,z))!=null);
 	}
 	
 	public boolean existBloc(Vector3f coord) {
-		return cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] != null;
+		return existBloc((int)coord.x,(int)coord.y,(int)coord.z);
 		//return (cartoMap.get(coord)!=null);
 	}
 	
 	public void attachBloc(Block bloc) {
 		Vector3f coord = bloc.getCoord();
 		try{
-		cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = bloc;
-      //  cartoMap.put(coord, bloc);
-		map.attachChild(bloc.getGeometry());
-		appState.getPhysicsSpace().add(bloc.getBlocScape());
+			cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = bloc;
+	      //  cartoMap.put(coord, bloc);
+			map.attachChild(bloc.getGeometry());
+			appState.getPhysicsSpace().add(bloc.getBlocScape());
 		}
 		catch(ArrayIndexOutOfBoundsException e)
 		{
@@ -75,22 +72,25 @@ public class MapControl implements IMapControl {
 		}
 	}
 	
-	public Block getBlock(Vector3f coord) {
-		return cartoMap[(int)coord.x][(int)coord.y][(int)coord.z];
-	}
-	
 	public Block getBlock(int x, int y, int z) {
 		return cartoMap[x][y][z];
 	}
 	
+	public Block getBlock(Vector3f coord) {
+		return getBlock((int)coord.x,(int)coord.y,(int)coord.z);
+	}
+	
 	public boolean detachBlock(Block bloc) {
 		Vector3f coord = bloc.getCoord();
+		
 		if (existBloc(coord)) {
 			map.detachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().remove(bloc.getBlocScape());
 			cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = null;
 			return true;
-		} else {
+		} 
+		else 
+		{
 			return false;
 		}
 	}

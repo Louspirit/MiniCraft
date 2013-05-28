@@ -14,19 +14,12 @@ import com.jme3.math.Vector3f;
  */
 public interface IPlayerControl extends ActionListener {
 	
-	// attribut vie
-	// macros
 	
 	/**
 	 * Fait avancer le personnage
 	 */
 	public void walk();
 	
-	/**
-	 * Renvois la position du personnage
-	 * @return le vecteur de la position
-	 */
-	public Vector3f getPhysicLocation();
 	
 	/**
 	 * Renvois le joueur
