@@ -26,7 +26,7 @@ public class PlayerControl implements IPlayerControl {
 		this.cam = camera;
 		// Utilisation de BetterCharacterControl pour la forme du joueur 
 		// et pour gérer sa physique
-		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.45f, 1.95f, 1);
+		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.45f,1.10f, 1);
 	    player = new CharacterControl(capsuleShape, 0.015f);
 	    player.setJumpSpeed(20);
 	    player.setFallSpeed(10);
