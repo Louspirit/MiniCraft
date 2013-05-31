@@ -15,6 +15,11 @@ public class Constant {
 	public static final String Right = "Right";
 	public static final String Left = "Left";
 	public static final String FrontOf = "FrontOf";
-
+	
+	// Direction pour creer structure
+	public static final String X = "X";
+	public static final String Y = "Y";
+	public static final String Z = "Z";
+	public static final String ERROR = "ERROR";
 
 }

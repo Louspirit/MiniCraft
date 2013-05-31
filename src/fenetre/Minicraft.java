@@ -69,6 +69,8 @@ public class Minicraft extends SimpleApplication {
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
+	    
+	    blockControl.createLine(new Vector3f(5,1,1), new Vector3f(10,1,1));
 	}
 	
 	private void initCam() {
