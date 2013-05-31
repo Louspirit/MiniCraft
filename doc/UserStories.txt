@@ -1,6 +1,10 @@
-﻿Sprint 1 :
+﻿User Stories
+------------
 
-Par ordre de priorité :
+
+Par ordre de priorité.
+
+Sprint 1 :
 
 * L'utilisateur doit obtenir une fenetre avec un monde plat.
 * L'utilisateur doit "être à la 1ère personne".
@@ -9,3 +13,13 @@ Par ordre de priorité :
 * L'utilisateur doit pouvoir enlever des blocs.
 * L'utilisateur ne doit pas pouvoir traverser les blocs.
 * L'utilisateur doit pouvoir choisir différents types de blocs.
+
+
+Sprint 2 :
+
+* L'utilisateur doit pouvoir enregistrer des macros
+* L'utilisateur doit pouvoir rejouer des macros
+* L'utilisateur doit pouvoir donner un nom aux macros
+* L'utilisateur doit pouvoir copier une structure
+* L'utilisateur doit pouvoir coller une structure
+* L'utilisateur doit pouvoir creer des formes predefinies (lignes,...)
