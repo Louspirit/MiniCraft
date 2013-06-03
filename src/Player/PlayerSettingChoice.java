@@ -2,7 +2,8 @@ package Player;
 
 import java.util.HashMap;
 
-import util.Constant;
+import com.jme3.math.Vector3f;
+
 
 public class PlayerSettingChoice {
 	
@@ -11,10 +12,15 @@ public class PlayerSettingChoice {
 			"wood.jpg", "puppy.jpg" , "sexy.jpg"};
 	private static int currentBlocType = 0;
 	
+	private static Vector3f stockFirstVector;
+	private static boolean isCreatingForm;
+	private static boolean isFormFull;
+	
 	public static void init() {
 		for (int i=0; i < listeTypeBloc.length ; i++) {
 			bloc.put(i, listeTypeBloc[i]);
 		}
+		stockFirstVector = null;
 	}
 	
 	public static void setNextBlocType() {
@@ -34,6 +40,39 @@ public class PlayerSettingChoice {
 	
 	public static String getTypeBloc() {
 		return bloc.get(currentBlocType);
+	}
+	
+	public static void switchCreatingForm() {
+		if (isCreatingForm==true) {
+			initStockVector();
+		}
+		isCreatingForm = !isCreatingForm;
+		System.out.println("Create Form ? " + isCreatingForm);
+	}
+	
+	public static boolean isCreatingForm() {
+		return isCreatingForm;
+	}
+	
+	public static void setStockVector(Vector3f vector) {
+		stockFirstVector = vector;
+	}
+	
+	public static void initStockVector() {
+		stockFirstVector = null;
+	}
+	
+	public static Vector3f getStockVector() {
+		return stockFirstVector;
+	}
+	
+	public static void switchFullForm() {
+		isFormFull = !isFormFull;
+		System.out.println("Create Form Full ? " + isFormFull);
+	}
+	
+	public static boolean isFormFull() {
+		return isFormFull;
 	}
 
 }

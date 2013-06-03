@@ -11,6 +11,10 @@ public class SettingListener implements ActionListener {
 			 PlayerSettingChoice.setNextBlocType();
 		 } else if (name.equals("SwitchBlocDown")) {
 			 PlayerSettingChoice.setPreviousBlocType();
+		 } else if (name.equals("CreateForm") && !keyPressed) {
+			 PlayerSettingChoice.switchCreatingForm();
+		 }  else if (name.equals("CreateFormFull") && !keyPressed) {
+			 PlayerSettingChoice.switchFullForm();
 		 }
 	}
 
