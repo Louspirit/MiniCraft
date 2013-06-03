@@ -1,5 +1,6 @@
 package listener;
 
+import Player.PlayerSettingChoice;
 import World.*;
 
 import com.jme3.collision.CollisionResult;
@@ -26,6 +27,7 @@ public class BlocListener implements ActionListener {
 
 	public void onAction(String name, boolean keyPressed, float tpf) {
 		 if ((name.equals("Add") || name.equals("Delete")) && !keyPressed) {
+
 		        // 1. Reset results list.
 		        CollisionResults results = new CollisionResults();
 		        // 2. Aim the ray from cam loc to cam direction.
@@ -45,17 +47,25 @@ public class BlocListener implements ActionListener {
 		          if(results.size() > 0) bottomBloc = results.getClosestCollision();
 		          else bottomBloc = new CollisionResult();
 		          
-		          Vector3f coord =  closest.getGeometry().getWorldBound().getCenter();
 
-		          if (mapControl.existBloc(coord) && closest.getDistance() < 5) {
-		        	   Block block = mapControl.getBlock(coord);
-		        	   if (name.equals("Add")) {
-		                   blockControl.newBlocNextTo(block, calculDirection(coord, closest.getContactPoint()));
-		        	   } else if (name.equals("Delete")) {
-		            	   blockControl.deleteBloc(block);
-		        	   }
-		          }
-		        }
+			          Vector3f coord =  closest.getGeometry().getWorldBound().getCenter();
+
+			          if (mapControl.existBloc(coord) && closest.getDistance() < 5) {
+			        	   Block block = mapControl.getBlock(coord);
+			        	   if (name.equals("Add") && !PlayerSettingChoice.isCreatingForm()) {
+			                   blockControl.newBlocNextTo(block, calculDirection(coord, closest.getContactPoint()), true);
+			        	   } else if (name.equals("Delete")) {
+			            	   blockControl.deleteBloc(block);
+			        	   } else if (name.equals("Add") && PlayerSettingChoice.isCreatingForm()) {
+			        		   if (PlayerSettingChoice.getStockVector() != null) {
+			        			   blockControl.createRectangle(PlayerSettingChoice.getStockVector(), blockControl.newBlocNextTo(block, calculDirection(coord, closest.getContactPoint()), false).getCoord(), PlayerSettingChoice.isFormFull());
+			        			   PlayerSettingChoice.initStockVector();
+			        		   } else {
+			        			   PlayerSettingChoice.setStockVector(blockControl.newBlocNextTo(block, calculDirection(coord, closest.getContactPoint()), false).getCoord());
+			        		   }
+			        	   }
+			          }
+			        }
 		 }
 	}
 	

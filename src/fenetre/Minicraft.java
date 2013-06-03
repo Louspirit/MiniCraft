@@ -72,7 +72,6 @@ public class Minicraft extends SimpleApplication {
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	    
 
-	    blockControl.createLine(new Vector3f(5,1,1), new Vector3f(10,1,1));
 	}
 	
 	private void initCam() {
@@ -103,6 +102,8 @@ public class Minicraft extends SimpleApplication {
 
 	    inputManager.addMapping("SwitchBlocUp", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,false));
 	    inputManager.addMapping("SwitchBlocDown", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,true));
+	    inputManager.addMapping("CreateForm", new KeyTrigger(KeyInput.KEY_F));
+	    inputManager.addMapping("CreateFormFull", new KeyTrigger(KeyInput.KEY_G));
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
 	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
 //	    inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
@@ -118,8 +119,11 @@ public class Minicraft extends SimpleApplication {
 	    
 	    inputManager.addListener(actionListener, "Add");
 	    inputManager.addListener(actionListener, "Delete");
+	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp");
 	    inputManager.addListener(settingListener, "SwitchBlocDown");
+	    inputManager.addListener(settingListener, "CreateForm");
+	    inputManager.addListener(settingListener, "CreateFormFull");
 	    //inputManager.addListener(playerControl, "rotateLeft");
 	}
 
