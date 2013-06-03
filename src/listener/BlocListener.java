@@ -30,22 +30,21 @@ public class BlocListener implements ActionListener {
 		        CollisionResults results = new CollisionResults();
 		        // 2. Aim the ray from cam loc to cam direction.
 		        Ray ray = new Ray(cam.getLocation(), cam.getDirection());
-		        // 3. Collect intersections between Ray and Shootables in results list.
+		        // 3. Collect intersections between Ray and Bloc in results list.
 		        map.collideWith(ray, results);
 
-		        for (int i = 0; i < results.size(); i++) {
-		          // For each hit, we know distance, impact point, name of geometry.
-		          float dist = results.getCollision(i).getDistance();
-		          Vector3f pt = results.getCollision(i).getContactPoint();
-		          String hit = results.getCollision(i).getGeometry().getName();
-
-		        }
-		        // 5. Use the results (we mark the hit object)
+		        /**
+		         * S'il y a un resultat
+		         */
 		        if (results.size() > 0) {
 		          // The closest collision point is what was truly hit:
-		          CollisionResult closest = results.getClosestCollision();
+		          CollisionResult closest = results.getClosestCollision(), bottomBloc;
 
-
+		          Ray rayVertical = new Ray(cam.getLocation(),new Vector3f(0,-3,0));
+		          map.collideWith(rayVertical, results);
+		          if(results.size() > 0) bottomBloc = results.getClosestCollision();
+		          else bottomBloc = new CollisionResult();
+		          
 		          Vector3f coord =  closest.getGeometry().getWorldBound().getCenter();
 
 		          if (mapControl.existBloc(coord) && closest.getDistance() < 5) {

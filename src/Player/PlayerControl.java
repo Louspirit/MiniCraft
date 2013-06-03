@@ -41,7 +41,7 @@ public class PlayerControl implements IPlayerControl {
 	 */
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {
-	   if (binding.equals("Left")) {
+		if (binding.equals("Left")) {
 		      left = value;
 		    } else if (binding.equals("Right")) {
 		      right = value;
@@ -53,7 +53,11 @@ public class PlayerControl implements IPlayerControl {
 		      player.jump();
 		    }
 	}
+	
+	@Override
+	public void onAnalog(String binding, float value, float tpf) {
 
+	}
 
 	@Override
 	public void walk() {

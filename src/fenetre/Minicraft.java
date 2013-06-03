@@ -3,6 +3,7 @@ package fenetre;
 import listener.BlocListener;
 import listener.SettingListener;
 import util.Constant;
+import Player.BetterPlayerControl;
 import Player.IPlayerControl;
 import Player.PlayerControl;
 import Player.PlayerSettingChoice;
@@ -63,18 +64,20 @@ public class Minicraft extends SimpleApplication {
 		
 		blockControl = new BlockControl(mapControl, this);
 		
-	    playerControl = new PlayerControl(cam);
+	    playerControl = new BetterPlayerControl(this.rootNode, cam);
 	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
 	    settingListener = new SettingListener();
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
+	    
 	}
 	
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
 		cam.setFrustumPerspective(45, (float) cam.getWidth() / cam.getHeight(), 0.01f, 1000);
 		flyCam.setMoveSpeed(40);
+		flyCam.setEnabled(false);
 	}
 
 	/**
@@ -95,11 +98,15 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));
 	    inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
 	    inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+
 	    inputManager.addMapping("SwitchBlocUp", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,false));
 	    inputManager.addMapping("SwitchBlocDown", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,true));
-
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
 	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
+	    inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+	    inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));
+	    inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
+	    inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
 	    
 	    inputManager.addListener(playerControl, "Left");
 	    inputManager.addListener(playerControl, "Right");
@@ -109,10 +116,10 @@ public class Minicraft extends SimpleApplication {
 	    
 	    inputManager.addListener(actionListener, "Add");
 	    inputManager.addListener(actionListener, "Delete");
-	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp");
 	    inputManager.addListener(settingListener, "SwitchBlocDown");
-	  }
+	    inputManager.addListener(playerControl, "rotateLeft");
+	}
 
   @Override
   public void simpleUpdate(float tpf)

@@ -1,9 +1,8 @@
 package Player;
 
-import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.input.controls.ActionListener;
-import com.jme3.math.Vector3f;
+import com.jme3.input.controls.AnalogListener;
 
 /**
  * 
@@ -13,7 +12,7 @@ import com.jme3.math.Vector3f;
  * Interface du joueur
  *
  */
-public interface IPlayerControl extends ActionListener {
+public interface IPlayerControl extends ActionListener, AnalogListener {
 	
 	
 	/**
