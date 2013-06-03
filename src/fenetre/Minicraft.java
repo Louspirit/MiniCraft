@@ -71,10 +71,8 @@ public class Minicraft extends SimpleApplication {
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 	    
-<<<<<<< HEAD
-=======
+
 	    blockControl.createLine(new Vector3f(5,1,1), new Vector3f(10,1,1));
->>>>>>> branch 'master' of https://github.com/Louspirit/MiniCraft.git
 	}
 	
 	private void initCam() {
