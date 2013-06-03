@@ -29,9 +29,9 @@ public class PlayerControl implements IPlayerControl {
 		// et pour gérer sa physique
 		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.45f,1.10f, 1);
 	    player = new CharacterControl(capsuleShape, 0.015f);
-	    player.setJumpSpeed(20);
-	    player.setFallSpeed(10);
-	    player.setGravity(70);
+	    player.setJumpSpeed(18);
+	    player.setFallSpeed(13f);
+	    player.setGravity(90);
 	    player.setPhysicsLocation(new Vector3f(4, 5, 4));
 
 	}
@@ -70,7 +70,7 @@ public class PlayerControl implements IPlayerControl {
 	    if (up)    { walkDirection.addLocal(camDir); }
 	    if (down)  { walkDirection.addLocal(camDir.negate()); }
 	    player.setWalkDirection(walkDirection);
-	    cam.setLocation(player.getPhysicsLocation());
+	    cam.setLocation(player.getPhysicsLocation().add(new Vector3f(0,0.5f,0)));
 	}
 
 

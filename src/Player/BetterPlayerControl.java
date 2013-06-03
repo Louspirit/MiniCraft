@@ -42,6 +42,7 @@ public class BetterPlayerControl implements IPlayerControl, AnalogListener {
         camNode.setControlDir(ControlDirection.SpatialToCamera);
         playerNode.attachChild(camNode);	
         
+        player.warp(new Vector3f(14, 10, 10));
 	}
 	
 	/* (non-Javadoc)
