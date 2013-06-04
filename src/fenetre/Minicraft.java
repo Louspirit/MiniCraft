@@ -2,6 +2,7 @@ package fenetre;
 
 import listener.BlocListener;
 import listener.SettingListener;
+import ui.HUDControl;
 import util.Constant;
 import Player.BetterPlayerControl;
 import Player.IPlayerControl;
@@ -42,13 +43,15 @@ public class Minicraft extends SimpleApplication {
 	 private BlocListener actionListener;
 	 // Listener pour les paramètres en cours (type de bloc, type de structure etc...)
 	 private SettingListener settingListener;
+	 private HUDControl hudControl;
 	
 	@Override
 	public void simpleInitApp() {
 		
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
-		initCam();	
-		PlayerSettingChoice.init();
+		initCam();
+        initHUD();
+		PlayerSettingChoice.init(hudControl);
 
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
@@ -127,24 +130,29 @@ public class Minicraft extends SimpleApplication {
 	    //inputManager.addListener(playerControl, "rotateLeft");
 	}
 
-  @Override
-  public void simpleUpdate(float tpf)
-  {
-	  playerControl.walk();
-  }
+    @Override
+    public void simpleUpdate(float tpf)
+    {
+        playerControl.walk();
+    }
   
-  /** A centred plus sign to help the player aim. */
-  protected void initCrossHairs() {
-    guiNode.detachAllChildren();
-    guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-    BitmapText ch = new BitmapText(guiFont, false);
-    ch.setSize(guiFont.getCharSet().getRenderedSize() * 2);
-    ch.setText("+"); // crosshairs
-    ch.setLocalTranslation( // center
-      settings.getWidth() / 2 - guiFont.getCharSet().getRenderedSize() / 3 * 2,
-      settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
-    guiNode.attachChild(ch);
-  }
+    /** A centred plus sign to help the player aim. */
+    protected void initCrossHairs() {
+        guiNode.detachAllChildren();
+        guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+        BitmapText ch = new BitmapText(guiFont, false);
+        ch.setSize(guiFont.getCharSet().getRenderedSize() * 2);
+        ch.setText("+"); // crosshairs
+        ch.setLocalTranslation( // center
+          settings.getWidth() / 2 - guiFont.getCharSet().getRenderedSize() / 3 * 2,
+          settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
+        guiNode.attachChild(ch);
+    }
+    
+    private void initHUD() {
+        hudControl = new HUDControl(this, settings.getWidth(), settings.getHeight());
+        guiNode.attachChild(hudControl.generate());
+    }
 }
 
 

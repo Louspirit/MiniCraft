@@ -51,8 +51,12 @@ public class MapControl implements IMapControl {
 	}
 	
 	public void attachBloc(Block bloc) {
-		
+		Location coord = bloc.getLocation();
 		try{
+			if (existBloc(coord.getX(), coord.getY(), coord.getZ())) 
+			{
+				detachBlock(getBlock(coord.getX(), coord.getY(), coord.getZ()));
+			}
 			cartoMap.add(bloc);
 			map.attachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().add(bloc.getBlocScape());
