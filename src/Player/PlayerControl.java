@@ -62,15 +62,19 @@ public class PlayerControl implements IPlayerControl {
 	@Override
 	public void walk() {
 		// TODO Auto-generated method stub
-		Vector3f camDir = cam.getDirection().clone().multLocal(0.15f);
-	    Vector3f camLeft = cam.getLeft().clone().multLocal(0.1f);
-	    walkDirection.set(0, 0, 0);
-	    if (left)  { walkDirection.addLocal(camLeft); }
-	    if (right) { walkDirection.addLocal(camLeft.negate()); }
-	    if (up)    { walkDirection.addLocal(camDir); }
-	    if (down)  { walkDirection.addLocal(camDir.negate()); }
-	    player.setWalkDirection(walkDirection);
-	    cam.setLocation(player.getPhysicsLocation().add(new Vector3f(0,0.5f,0)));
+		if (player.getPhysicsLocation().y <= -10) {
+			player.setPhysicsLocation(new Vector3f(4, 20, 4));
+		} else {
+			Vector3f camDir = cam.getDirection().clone().multLocal(0.15f);
+		    Vector3f camLeft = cam.getLeft().clone().multLocal(0.1f);
+		    walkDirection.set(0, 0, 0);
+		    if (left)  { walkDirection.addLocal(camLeft); }
+		    if (right) { walkDirection.addLocal(camLeft.negate()); }
+		    if (up)    { walkDirection.addLocal(camDir); }
+		    if (down)  { walkDirection.addLocal(camDir.negate()); }
+		    player.setWalkDirection(walkDirection);
+		    cam.setLocation(player.getPhysicsLocation().add(new Vector3f(0,0.5f,0)));	
+		}
 	}
 
 
