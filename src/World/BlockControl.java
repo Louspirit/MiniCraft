@@ -10,6 +10,7 @@ import Player.PlayerSettingChoice;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.sun.xml.internal.ws.util.StringUtils;
 
@@ -40,7 +41,17 @@ public class BlockControl implements IBlockControl {
 	     Vector3f coord =  bloc.getCoord();
          Vector3f coordNewBloc = new Vector3f(
         		 coord.getX()+direction.x,coord.getY()+direction.y,coord.getZ()+direction.z);
-         if (attachBloc) {
+                 
+         int x1 = Math.round(coordNewBloc.getX());
+         int y1 = Math.round(coordNewBloc.getY());
+         int z1 = Math.round(coordNewBloc.getZ());
+         
+         Camera cam = minicraft.getCamera();
+         int x2 = Math.round(cam.getLocation().getX());
+         int y2 = Math.round(cam.getLocation().getY());
+         int z2 = Math.round(cam.getLocation().getZ());
+         
+         if (attachBloc && !(x1 == x2 && (y1 == (y2-1) || y1 == y2) && z1 == z2)) {
              mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc));     
          } else {
         	 return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc);
