@@ -1,56 +1,69 @@
 package Player;
 
 import java.util.HashMap;
+import java.util.Observable;
 
 import ui.IHUDControl;
 
 import com.jme3.math.Vector3f;
 
 
-public class PlayerSettingChoice {
+public class PlayerSettingChoice extends Observable {
 	
-	private static HashMap<Integer, String> bloc = new HashMap<Integer, String>();
-	private static String[] listeTypeBloc = {"grass.jpg", "terre.jpg", "beton.jpg", "water.jpg", 
+	private HashMap<Integer, String> bloc = new HashMap<Integer, String>();
+	private String[] listeTypeBloc = {"grass.jpg", "terre.jpg", "beton.jpg", "water.jpg", 
 			"wood.jpg", "puppy.jpg" , "sexy.jpg"};
-	private static int currentBlocType = 0;
+	private int currentBlocType = 0;
 	
-	private static Vector3f stockFirstVector;
-	private static boolean isCreatingForm;
-	private static boolean isFormFull;
+	private Vector3f stockFirstVector;
+	private boolean isCreatingForm;
+	private boolean isFormFull;
     
-    private static IHUDControl hudControl;
-	
-	public static void init(IHUDControl hudControl) {
+    
+    private static PlayerSettingChoice instance;
+    
+    private PlayerSettingChoice() {
 		for (int i=0; i < listeTypeBloc.length ; i++) {
 			bloc.put(i, listeTypeBloc[i]);
 		}
 		stockFirstVector = null;
+	}
+    
+    public final static PlayerSettingChoice getInstance() {
+    	if (PlayerSettingChoice.instance == null) {
+    		PlayerSettingChoice.instance = new PlayerSettingChoice();
+    	}
+    	
+    	return PlayerSettingChoice.instance;
+    }
+	
+	public void setHudControl(IHUDControl hudControl) {
         hudControl.setBlocksTypes(listeTypeBloc);
-		PlayerSettingChoice.hudControl = hudControl;
+		this.addObserver(hudControl);
 	}
 	
-	public static void setNextBlocType() {
+	public void setNextBlocType() {
 		
 		if (currentBlocType<listeTypeBloc.length-1) {
 			currentBlocType++;
-            hudControl.displayNextBlock();
+			setChanged();
+			notifyObservers();
 		}
-		//System.out.println("Bloc selectionnee : " + getTypeBloc());		
 	}
 	
-	public static void setPreviousBlocType() {
+	public void setPreviousBlocType() {
 		if (currentBlocType>0) {
 			currentBlocType--;
-            hudControl.displayPreviousBlock();
+			setChanged();
+			notifyObservers();
 		}
-		//System.out.println("Bloc selectionnee : " + getTypeBloc());
 	}
 	
-	public static String getTypeBloc() {
+	public String getTypeBloc() {
 		return bloc.get(currentBlocType);
 	}
 	
-	public static void switchCreatingForm() {
+	public void switchCreatingForm() {
 		if (isCreatingForm==true) {
 			initStockVector();
 		}
@@ -58,28 +71,28 @@ public class PlayerSettingChoice {
 		System.out.println("Create Form ? " + isCreatingForm);
 	}
 	
-	public static boolean isCreatingForm() {
+	public boolean isCreatingForm() {
 		return isCreatingForm;
 	}
 	
-	public static void setStockVector(Vector3f vector) {
+	public void setStockVector(Vector3f vector) {
 		stockFirstVector = vector;
 	}
 	
-	public static void initStockVector() {
+	public void initStockVector() {
 		stockFirstVector = null;
 	}
 	
-	public static Vector3f getStockVector() {
+	public Vector3f getStockVector() {
 		return stockFirstVector;
 	}
 	
-	public static void switchFullForm() {
+	public void switchFullForm() {
 		isFormFull = !isFormFull;
 		System.out.println("Create Form Full ? " + isFormFull);
 	}
 	
-	public static boolean isFormFull() {
+	public boolean isFormFull() {
 		return isFormFull;
 	}
 

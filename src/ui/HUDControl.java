@@ -1,5 +1,10 @@
 package ui;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import Player.PlayerSettingChoice;
+
 import com.jme3.scene.Spatial;
 import com.jme3.ui.Picture;
 import util.Constant;
@@ -14,11 +19,14 @@ public class HUDControl implements IHUDControl {
 	private String[] types;
 	private Picture picture = new Picture("HUD Picture");
 	private int i = 0;
+	PlayerSettingChoice setting;
 
 	public HUDControl(Minicraft app, int width, int height) {
 		this.app = app;
 		this.width = width;
 		this.height = height;
+		setting = PlayerSettingChoice.getInstance();
+		setting.setHudControl(this);
 	}
 	
 	@Override
@@ -31,23 +39,13 @@ public class HUDControl implements IHUDControl {
 	}
 
 	@Override
-	public void displayNextBlock() {
-		picture.setImage(app.getAssetManager(), Constant.TEXTURES_PATH + types[++i] , true);
-	}
-	
-	@Override
-	public void displayPreviousBlock() {
-		picture.setImage(app.getAssetManager(), Constant.TEXTURES_PATH + types[--i] , true);
-	}
-
-	@Override
-	public void update() {
-		app.getGuiNode().attachChild(picture);
-	}
-
-	@Override
 	public void setBlocksTypes(String[] types) {
 		this.types = types;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		picture.setImage(app.getAssetManager(), Constant.TEXTURES_PATH + setting.getTypeBloc() , true);
 	}
 
 }

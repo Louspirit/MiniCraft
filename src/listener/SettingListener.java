@@ -7,14 +7,15 @@ public class SettingListener implements ActionListener {
 
 	@Override
 	public void onAction(String name, boolean keyPressed, float tpf) {
+  	  PlayerSettingChoice setting = PlayerSettingChoice.getInstance();
 		 if (name.equals("SwitchBlocUp")) {
-			 PlayerSettingChoice.setNextBlocType();
+			 setting.setNextBlocType();
 		 } else if (name.equals("SwitchBlocDown")) {
-			 PlayerSettingChoice.setPreviousBlocType();
+			 setting.setPreviousBlocType();
 		 } else if (name.equals("CreateForm") && !keyPressed) {
-			 PlayerSettingChoice.switchCreatingForm();
+			 setting.switchCreatingForm();
 		 }  else if (name.equals("CreateFormFull") && !keyPressed) {
-			 PlayerSettingChoice.switchFullForm();
+			 setting.switchFullForm();
 		 }
 	}
 

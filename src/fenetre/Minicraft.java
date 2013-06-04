@@ -51,7 +51,6 @@ public class Minicraft extends SimpleApplication {
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();
         initHUD();
-		PlayerSettingChoice.init(hudControl);
 
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
