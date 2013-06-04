@@ -20,11 +20,13 @@ public class BlockControl implements IBlockControl {
 	private IMapControl mapControl;
 	private Minicraft minicraft;
 	public AssetManager assetManager;
+	public PlayerSettingChoice setting;
 	
 	public BlockControl(IMapControl mapControl, Minicraft minicraft) {
 		this.mapControl = mapControl;
 		this.minicraft = minicraft;
 		assetManager = this.minicraft.getAssetManager();
+		setting = PlayerSettingChoice.getInstance();
 	}
 
 	@Override
@@ -39,9 +41,9 @@ public class BlockControl implements IBlockControl {
          Vector3f coordNewBloc = new Vector3f(
         		 coord.getX()+direction.x,coord.getY()+direction.y,coord.getZ()+direction.z);
          if (attachBloc) {
-             mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), coordNewBloc));     
+             mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc));     
          } else {
-        	 return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), coordNewBloc);
+        	 return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc);
          }
          return null;
 	}
@@ -68,12 +70,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(x1-x2);
 				if (x1 < x2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x+i,start.y,start.z));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x+i,start.y,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x-i,start.y,start.z));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x-i,start.y,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -85,12 +87,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(y1-y2);
 				if (y1 < y2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x,start.y+i,start.z));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y+i,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x,start.y-i,start.z));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y-i,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -102,12 +104,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(z1-z2);
 				if (z1 < z2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x,start.y,start.z+i));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y,start.z+i));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(start.x,start.y,start.z-i));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y,start.z-i));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -180,38 +182,38 @@ public class BlockControl implements IBlockControl {
 		if (!full) {
 
 		for (int i=0 ; i <= diffX ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1+i,y1,z1));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1+i,y1,z2));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1,z2));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2-i,y2,z1));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2-i,y2,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2-i,y2,z2));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2-i,y2,z2));
 			mapControl.attachBloc(bloc);
 		}
 		
 
 		
 		for (int i=0 ; i <= diffY ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1,y1+i,z1));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1+i,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1,y1+i,z2));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1+i,z2));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2,y2-i,z1));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2-i,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2,y2-i,z2));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2-i,z2));
 			mapControl.attachBloc(bloc);
 		}
 	
 		
 		for (int i=0 ; i <= diffZ ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1,y1,z1+i));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1,z1+i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1,y2,z1+i));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y2,z1+i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2,y1,z2-i));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y1,z2-i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x2,y2,z2-i));
+			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2,z2-i));
 			mapControl.attachBloc(bloc);
 		}
 		
@@ -220,7 +222,7 @@ public class BlockControl implements IBlockControl {
 			for (int i=0 ; i <= diffX ; i++) {
 				for (int j=0 ; j <= diffY ; j++) {
 					for (int k=0 ; k <= diffZ ; k++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + PlayerSettingChoice.getTypeBloc()), new Vector3f(x1+i,y1+j,z1+k));
+						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1+j,z1+k));
 						mapControl.attachBloc(bloc);
 					}
 				}

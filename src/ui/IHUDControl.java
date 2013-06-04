@@ -1,13 +1,12 @@
 package ui;
 
+import java.util.Observer;
+
 import com.jme3.scene.Spatial;
 
-public interface IHUDControl {
+public interface IHUDControl extends Observer {
 	
 	Spatial generate();
-	void update();
-	void displayNextBlock();
-	void displayPreviousBlock();
 	void setBlocksTypes(String[] types);
 	
 }
