@@ -43,4 +43,13 @@ public class Block {
 	public Vector3f getCoord() {
 		return coord;
 	}
+	
+	/**
+	 * 
+	 * @return renvois les coordonées entière du bloc
+	 */
+	public Location getLocation()
+	{
+		return new Location((int) coord.x, (int)coord.y, (int)coord.z);
+	}
 }

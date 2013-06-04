@@ -1,18 +1,11 @@
 package World;
 
-import java.util.HashMap;
 
 import util.BlockType;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.asset.AssetManager;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
-import com.jme3.texture.Texture;
 
 import fenetre.Minicraft;
 
@@ -20,7 +13,7 @@ public class MapControl implements IMapControl {
 	
 	private Minicraft minicraft;
 	//private HashMap<Integer[][][], Block> cartoMap;
-	private Block[][][] cartoMap;
+	private IBlockMap cartoMap;
 	public Node map;
 	public AssetManager assetManager;
 	private BulletAppState appState;
@@ -29,7 +22,7 @@ public class MapControl implements IMapControl {
 	public void init(Minicraft minicraft, BulletAppState appState) {
 		this.minicraft = minicraft;
 		//cartoMap = new HashMap<Integer[][][], Block>();
-		cartoMap = new Block[100][100][100];
+		cartoMap = new BlockMap(100);
 		assetManager = this.minicraft.getAssetManager();
 		this.appState = appState;
 	}
@@ -50,19 +43,17 @@ public class MapControl implements IMapControl {
 	}
 
 	public boolean existBloc(int x, int y, int z) {
-		return cartoMap[x][y][z] != null;
+		return cartoMap.get(x, y, z) != null;
 	}
 	
 	public boolean existBloc(Vector3f coord) {
 		return existBloc((int)coord.x,(int)coord.y,(int)coord.z);
-		//return (cartoMap.get(coord)!=null);
 	}
 	
 	public void attachBloc(Block bloc) {
-		Vector3f coord = bloc.getCoord();
+		
 		try{
-			cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = bloc;
-	      //  cartoMap.put(coord, bloc);
+			cartoMap.add(bloc);
 			map.attachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().add(bloc.getBlocScape());
 		}
@@ -73,7 +64,7 @@ public class MapControl implements IMapControl {
 	}
 	
 	public Block getBlock(int x, int y, int z) {
-		return cartoMap[x][y][z];
+		return cartoMap.get(x, y, z);
 	}
 	
 	public Block getBlock(Vector3f coord) {
@@ -81,12 +72,12 @@ public class MapControl implements IMapControl {
 	}
 	
 	public boolean detachBlock(Block bloc) {
-		Vector3f coord = bloc.getCoord();
+		Location coord = bloc.getLocation();
 		
-		if (existBloc(coord)) {
+		if (existBloc(coord.getX(), coord.getY(), coord.getZ())) {
 			map.detachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().remove(bloc.getBlocScape());
-			cartoMap[(int)coord.x][(int)coord.y][(int)coord.z] = null;
+			cartoMap.remove(coord.getX(), coord.getY(), coord.getZ());
 			return true;
 		} 
 		else 
