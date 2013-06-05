@@ -18,6 +18,7 @@ import World.MapControl;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.collision.CollisionResult;
@@ -30,7 +31,11 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 
-public class Minicraft extends SimpleApplication {
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.screen.ScreenController;
+
+public class Minicraft extends SimpleApplication implements ScreenController{
 	
 	private IMapControl mapControl;
 	private IPlayerControl playerControl;
@@ -38,9 +43,12 @@ public class Minicraft extends SimpleApplication {
 	private BulletAppState bulletAppState;
 	private Node map;
 	private IBlockControl blockControl;
-	  
+	private Nifty nifty;
+    private Boolean MenuON=false;  
+	
+	
 	 /** Defining the "Shoot" action: Determine what was hit and how to respond. */
-	 private BlocListener actionListener;
+	 private BlocListener blocListener;
 	 // Listener pour les paramètres en cours (type de bloc, type de structure etc...)
 	 private SettingListener settingListener;
 	 private HUDControl hudControl;
@@ -67,7 +75,7 @@ public class Minicraft extends SimpleApplication {
 		blockControl = new BlockControl(mapControl, this);
 		
 	    playerControl = new PlayerControl( cam);
-	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
+	    blocListener = new BlocListener(cam, mapControl, blockControl, map);
 	    settingListener = new SettingListener();
 	    setUpKeys();
 	    
@@ -112,6 +120,8 @@ public class Minicraft extends SimpleApplication {
 //	    inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));
 //	    inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
 //	    inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+
+	    inputManager.addMapping("Menu", new KeyTrigger(KeyInput.KEY_P));
 	    
 	    inputManager.addListener(playerControl, "Left");
 	    inputManager.addListener(playerControl, "Right");
@@ -119,14 +129,15 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addListener(playerControl, "Down");
 	    inputManager.addListener(playerControl, "Jump");
 	    
-	    inputManager.addListener(actionListener, "Add");
-	    inputManager.addListener(actionListener, "Delete");
+	    inputManager.addListener(blocListener, "Add");
+	    inputManager.addListener(blocListener, "Delete");
 	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp");
 	    inputManager.addListener(settingListener, "SwitchBlocDown");
 	    inputManager.addListener(settingListener, "CreateForm");
 	    inputManager.addListener(settingListener, "CreateFormFull");
 	    //inputManager.addListener(playerControl, "rotateLeft");
+	    inputManager.addListener(OptionListener, "Menu");
 	}
 
     @Override
@@ -152,6 +163,50 @@ public class Minicraft extends SimpleApplication {
         hudControl = new HUDControl(this, settings.getWidth(), settings.getHeight());
         guiNode.attachChild(hudControl.generate());
     }
+    
+    private ActionListener OptionListener = new ActionListener() {
+        public void onAction(String name, boolean keyPressed, float tpf) {
+          if (name.equals("Menu") && !keyPressed) {      
+          	if(!MenuON){
+              NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,inputManager,
+                                                                audioRenderer,guiViewPort);
+              nifty = niftyDisplay.getNifty();
+              
+              nifty.fromXml("XML/Menu.xml", "start");
+
+              // attach the nifty display to the gui view port as a processor
+              guiViewPort.addProcessor(niftyDisplay);
+              
+              // disable the fly cam
+              flyCam.setEnabled(false);
+              //flyCam.setDragToRotate(false);
+              MenuON = true;
+  	        }else{
+  	        	guiViewPort.clearProcessors();
+  	        	flyCam.setEnabled(true);
+  	            //flyCam.setDragToRotate(true);
+  	        	
+  	            MenuON = false;
+  	        }
+          }
+       }
+     };
+      
+      public void bind(Nifty nifty, Screen screen) {
+          System.out.println("bind( " + screen.getScreenId() + ")");
+      }
+
+      public void onStartScreen() {
+          System.out.println("onStartScreen");
+      }
+
+      public void onEndScreen() {
+          System.out.println("onEndScreen");
+      }
+
+      public void quit(){
+          System.out.println("quit");
+      }
 }
 
 
