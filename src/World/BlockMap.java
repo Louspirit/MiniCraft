@@ -3,7 +3,6 @@
  */
 package World;
 
-import com.jme3.math.Vector3f;
 
 /**
  * @author roulleau

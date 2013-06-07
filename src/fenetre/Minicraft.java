@@ -2,6 +2,7 @@ package fenetre;
 
 import listener.BlocListener;
 import listener.SettingListener;
+import macro.MacroStore;
 import ui.HUDControl;
 import util.Constant;
 import Player.BetterPlayerControl;
@@ -38,6 +39,7 @@ public class Minicraft extends SimpleApplication {
 	private BulletAppState bulletAppState;
 	private Node map;
 	private IBlockControl blockControl;
+	private MacroStore macros;
 	  
 	 /** Defining the "Shoot" action: Determine what was hit and how to respond. */
 	 private BlocListener actionListener;
@@ -64,11 +66,14 @@ public class Minicraft extends SimpleApplication {
 		Node map = mapControl.generateMap(16, 16, 1);
 		rootNode.attachChild(map);	
 		
+		// Initialisation des listeners
 		blockControl = new BlockControl(mapControl, this);
 		
+		macros = new MacroStore(mapControl);
 	    playerControl = new PlayerControl( cam);
 	    actionListener = new BlocListener(cam, mapControl, blockControl, map);
 	    settingListener = new SettingListener();
+	    
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
@@ -106,6 +111,7 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addMapping("SwitchBlocDown", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,true));
 	    inputManager.addMapping("CreateForm", new KeyTrigger(KeyInput.KEY_F));
 	    inputManager.addMapping("CreateFormFull", new KeyTrigger(KeyInput.KEY_G));
+	    inputManager.addMapping("MacroRecStop", new KeyTrigger(KeyInput.KEY_M));
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
 	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
 //	    inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
@@ -119,8 +125,8 @@ public class Minicraft extends SimpleApplication {
 	    inputManager.addListener(playerControl, "Down");
 	    inputManager.addListener(playerControl, "Jump");
 	    
-	    inputManager.addListener(actionListener, "Add");
-	    inputManager.addListener(actionListener, "Delete");
+	    inputManager.addListener(actionListener, "Add", "Delete");
+	    inputManager.addListener(macros, "Add", "Delete", "MacroRecStop");
 	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp");
 	    inputManager.addListener(settingListener, "SwitchBlocDown");

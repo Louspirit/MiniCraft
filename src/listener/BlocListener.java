@@ -55,7 +55,9 @@ public class BlocListener implements ActionListener {
 			        	   Block block = mapControl.getBlock(coord);
 			        	   if (name.equals("Add") && !setting.isCreatingForm()) {
 			                   blockControl.newBlocNextTo(block, calculDirection(coord, closest.getContactPoint()), true);
+			                   
 			        	   } else if (name.equals("Delete")) {
+			        		   
 			            	   blockControl.deleteBloc(block);
 			        	   } else if (name.equals("Add") && setting.isCreatingForm()) {
 			        		   if (setting.getStockVector() != null) {
