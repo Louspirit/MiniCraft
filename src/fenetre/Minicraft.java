@@ -4,26 +4,19 @@ import listener.BlocListener;
 import listener.SettingListener;
 import macro.MacroStore;
 import ui.HUDControl;
-import util.Constant;
-import Player.BetterPlayerControl;
 import Player.IPlayerControl;
 import Player.PlayerControl;
-import Player.PlayerSettingChoice;
 
-import World.Block;
 import World.BlockControl;
 import World.IBlockControl;
 import World.IMapControl;
 import World.MapControl;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.collision.CollisionResult;
-import com.jme3.collision.CollisionResults;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -66,17 +59,17 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    stateManager.attach(bulletAppState);
 	    /** En cas de débugage **/
 	    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
-		
-		mapControl = new MapControl();
-		mapControl.init(this, bulletAppState);
-		flyCam.setMoveSpeed(10);
-		Node map = mapControl.generateMap(16, 16, 1);
+	    
+	    macros = new MacroStore();
+		mapControl = new MapControl(this, bulletAppState, macros);
+		macros.setMap(mapControl);
+		map = mapControl.generateMap(32, 32, 1);
 		rootNode.attachChild(map);	
 		
 		// Initialisation des listeners
 		blockControl = new BlockControl(mapControl, this);
 		
-		macros = new MacroStore(mapControl);
+		
 	    playerControl = new PlayerControl( cam);
 	    blocListener = new BlocListener(cam, mapControl, blockControl, map);
 	    settingListener = new SettingListener();
@@ -84,14 +77,13 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
-	    
 
 	}
 	
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
 		cam.setFrustumPerspective(45, (float) cam.getWidth() / cam.getHeight(), 0.01f, 1000);
-		flyCam.setMoveSpeed(40);
+		flyCam.setMoveSpeed(10);
 		//flyCam.setEnabled(false);
 	}
 
@@ -99,7 +91,6 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Minicraft minicraft = new Minicraft();
 		minicraft.start();
 	}
@@ -128,19 +119,12 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 
 	    inputManager.addMapping("Menu", new KeyTrigger(KeyInput.KEY_P));
 	    
-	    inputManager.addListener(playerControl, "Left");
-	    inputManager.addListener(playerControl, "Right");
-	    inputManager.addListener(playerControl, "Up");
-	    inputManager.addListener(playerControl, "Down");
-	    inputManager.addListener(playerControl, "Jump");
+	    inputManager.addListener(playerControl, "Left", "Right", "Up", "Down", "Jump");
 	    
 	    inputManager.addListener(blocListener, "Add", "Delete");
 	    inputManager.addListener(macros, "Add", "Delete", "MacroRecStop");
 	    
-	    inputManager.addListener(settingListener, "SwitchBlocUp");
-	    inputManager.addListener(settingListener, "SwitchBlocDown");
-	    inputManager.addListener(settingListener, "CreateForm");
-	    inputManager.addListener(settingListener, "CreateFormFull");
+	    inputManager.addListener(settingListener, "SwitchBlocUp", "SwitchBlocDown", "CreateForm", "CreateFormFull");
 	    //inputManager.addListener(playerControl, "rotateLeft");
 	    inputManager.addListener(OptionListener, "Menu");
 	}

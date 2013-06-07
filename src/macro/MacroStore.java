@@ -5,10 +5,8 @@ package macro;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.jme3.input.controls.ActionListener;
-import com.jme3.util.ListMap;
 
 import Player.IPlayerControl;
 import World.Block;
@@ -27,12 +25,15 @@ public class MacroStore implements ActionListener{
 	private IPlayerControl player;
 	private boolean enregistre;
 	
-	public MacroStore(IMapControl carte)
+	public MacroStore()
 	{
-		carteGlobale = carte;
 		liste = new LinkedList<Macro>();
 		enregistre = false;
-		
+	}
+	
+	public void setMap(IMapControl carte)
+	{
+		this.carteGlobale = carte;
 	}
 
 	@Override
@@ -67,6 +68,11 @@ public class MacroStore implements ActionListener{
 			}
 			
 		}
+	}
+	
+	public void removeBoc(Block bloc)
+	{
+		
 	}
 	
 	

@@ -1,6 +1,7 @@
 package World;
 
 
+import macro.MacroStore;
 import util.BlockType;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.asset.AssetManager;
@@ -12,19 +13,19 @@ import fenetre.Minicraft;
 public class MapControl implements IMapControl {
 	
 	private Minicraft minicraft;
-	//private HashMap<Integer[][][], Block> cartoMap;
 	private IBlockMap cartoMap;
 	public Node map;
 	public AssetManager assetManager;
 	private BulletAppState appState;
+	private MacroStore macro;
 
 	
-	public void init(Minicraft minicraft, BulletAppState appState) {
+	public MapControl(Minicraft minicraft, BulletAppState appState, MacroStore macro) {
 		this.minicraft = minicraft;
-		//cartoMap = new HashMap<Integer[][][], Block>();
 		cartoMap = new BlockMap(100);
 		assetManager = this.minicraft.getAssetManager();
 		this.appState = appState;
+		this.macro= macro;
 	}
 
 	
@@ -60,6 +61,7 @@ public class MapControl implements IMapControl {
 			cartoMap.add(bloc);
 			map.attachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().add(bloc.getBlocScape());
+			macro.addBloc(bloc);
 		}
 		catch(ArrayIndexOutOfBoundsException e)
 		{
@@ -82,6 +84,7 @@ public class MapControl implements IMapControl {
 			map.detachChild(bloc.getGeometry());
 			appState.getPhysicsSpace().remove(bloc.getBlocScape());
 			cartoMap.remove(coord.getX(), coord.getY(), coord.getZ());
+			macro.removeBoc(bloc);
 			return true;
 		} 
 		else 
