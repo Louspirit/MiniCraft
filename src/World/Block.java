@@ -10,15 +10,29 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 
+import fenetre.Minicraft;
+
 public class Block {
 	
 	private Geometry geometry;
 	private Vector3f coord;
 	private RigidBodyControl blocscape;
 
-	public Block(AssetManager assetManager, Texture texture, Vector3f coord) {
-		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+	
+	//TODO supprimer l'argument 'asset manager' et remplacer les utilisation de new Block par la factory
+	public Block(AssetManager a,Texture texture, Vector3f coord) {
+		Material material = new Material(Minicraft.getInstance().getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		material.setTexture("ColorMap", texture);
+		blockBuilder(material, coord);
+	}
+	
+	public Block(Block origin, Vector3f coord)
+	{
+		blockBuilder(origin.geometry.getMaterial().clone(), coord);
+	}
+	
+	private void blockBuilder(Material material, Vector3f coord)
+	{
 		this.coord = coord;
 		geometry = new Geometry("Box", new Box(coord, 0.5f, 0.5f, 0.5f));
 		geometry.setMaterial(material);

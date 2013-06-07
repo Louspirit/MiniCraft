@@ -3,11 +3,14 @@ package macro;
 import java.util.LinkedList;
 import java.util.List;
 
+import util.PCalcul;
+
+import com.jme3.collision.CollisionResult;
 import com.jme3.math.Vector3f;
 
 import World.Block;
+import World.BlockFactory;
 import World.IMapControl;
-import World.Location;
 
 public class Macro {
 
@@ -25,8 +28,7 @@ public class Macro {
 	
 	public void recordMacro(ActionTypeMacro type, Block bloc, Vector3f cible)
 	{
-		Location coord = new Location(cible.subtract(pointInit));
-		this.actions.add(new ActionMacro(type, bloc, coord));
+		this.actions.add(new ActionMacro(type, bloc, cible.subtract(pointInit)));
 	}
 
 
@@ -34,8 +36,29 @@ public class Macro {
 		return nom;
 	}
 
-	public void replay(IMapControl control)
+	public void replay(IMapControl map)
 	{
+		CollisionResult target = PCalcul.targetBloc();
+		if(target != null)
+		{
+			Vector3f center =  target.getGeometry().getWorldBound().getCenter(), 
+					coord =PCalcul.calculDirection(center, target.getContactPoint()).add(center);
+			
+		for(ActionMacro action : actions)
+		{
+			System.out.print("action :"+action.getType()+ ",coord rel : "+action.getCoord());
+			if(action.getType() == ActionTypeMacro.addBlock)
+			{
+				System.out.println(", add : "+action.getCoord().add(coord).add(center));
+				map.attachBloc(BlockFactory.createCopyBlock(action.getBloc(), action.getCoord().add(coord)));
+			}
+			if(action.getType() == ActionTypeMacro.removeBlock)
+			{
+				System.out.println("Del"+ action.getCoord().add(coord));
+				map.detachBlock(map.getBlock(action.getCoord().add(coord)));
+			}
+		}
+		}
 		
 	}
 }

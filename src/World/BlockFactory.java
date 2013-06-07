@@ -6,6 +6,8 @@ import util.Constant;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 
+import fenetre.Minicraft;
+
 public class BlockFactory {
 	
 	private AssetManager assetManager;
@@ -14,7 +16,7 @@ public class BlockFactory {
 		this.assetManager = assetManager;
 	}
 	
-	public Block createBlock(BlockType type, Vector3f coord) {
+	public static Block createBlock(BlockType type, Vector3f coord) {
 		String blockTexture = "";
 		
 		switch (type) {
@@ -29,7 +31,11 @@ public class BlockFactory {
 				break;
 		}
 		
-		return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + blockTexture), coord);
+		return new Block(null,Minicraft.getInstance().getAssetManager().loadTexture(Constant.TEXTURES_PATH + blockTexture), coord);
 	}
 	
+	public static Block createCopyBlock(Block origin, Vector3f coord)
+	{
+		return new Block(origin, coord);
+	}
 }

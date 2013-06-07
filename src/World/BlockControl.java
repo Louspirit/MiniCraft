@@ -52,9 +52,9 @@ public class BlockControl implements IBlockControl {
          int z2 = Math.round(cam.getLocation().getZ());
          
          if (attachBloc && !(x1 == x2 && (y1 == (y2-1) || y1 == y2) && z1 == z2)) {
-             mapControl.attachBloc(new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc));     
+             mapControl.attachBloc(new Block(assetManager,assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc));     
          } else {
-        	 return new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc);
+        	 return new Block(assetManager,assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc);
          }
          return null;
 	}

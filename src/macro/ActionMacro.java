@@ -1,16 +1,17 @@
 package macro;
 
+import com.jme3.math.Vector3f;
+
 import World.Block;
-import World.Location;
 
 public class ActionMacro {
 
 	private ActionTypeMacro type;
 	private Block bloc;
-	private Location coord;
+	private Vector3f coord;
 	
 	
-	public ActionMacro(ActionTypeMacro type, Block bloc, Location loc)
+	public ActionMacro(ActionTypeMacro type, Block bloc, Vector3f loc)
 	{
 		this.type = type;
 		this.bloc = bloc;
@@ -28,7 +29,7 @@ public class ActionMacro {
 	}
 
 
-	public Location getCoord() {
+	public Vector3f getCoord() {
 		return coord;
 	}
 	

@@ -31,11 +31,14 @@ import de.lessvoid.nifty.screen.ScreenController;
 
 public class Minicraft extends SimpleApplication implements ScreenController{
 	
+	private static Minicraft instance;
+	
 	private IMapControl mapControl;
 	private IPlayerControl playerControl;
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	private Node map;
+
 	private IBlockControl blockControl;
 	private MacroStore macros;
 	  
@@ -47,6 +50,8 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	 private SettingListener settingListener;
 	 private HUDControl hudControl;
 	
+	 private Minicraft(){}
+	 
 	@Override
 	public void simpleInitApp() {
 		
@@ -71,7 +76,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 		
 		
 	    playerControl = new PlayerControl( cam);
-	    blocListener = new BlocListener(cam, mapControl, blockControl, map);
+	    blocListener = new BlocListener(mapControl, blockControl);
 	    settingListener = new SettingListener();
 	    
 	    setUpKeys();
@@ -87,12 +92,19 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 		//flyCam.setEnabled(false);
 	}
 
+	public static Minicraft getInstance()
+	{
+		if(Minicraft.instance == null) 
+		{
+			Minicraft.instance = new Minicraft();
+		}
+		return instance;
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Minicraft minicraft = new Minicraft();
-		minicraft.start();
+		Minicraft.getInstance().start();
 	}
 
 	/**
@@ -109,7 +121,12 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    inputManager.addMapping("SwitchBlocDown", new MouseAxisTrigger(MouseInput.AXIS_WHEEL,true));
 	    inputManager.addMapping("CreateForm", new KeyTrigger(KeyInput.KEY_F));
 	    inputManager.addMapping("CreateFormFull", new KeyTrigger(KeyInput.KEY_G));
-	    inputManager.addMapping("MacroRecStop", new KeyTrigger(KeyInput.KEY_M));
+	    inputManager.addMapping("MacroRecStop", new KeyTrigger(KeyInput.KEY_E));
+	    inputManager.addMapping("PreviousMacro", new KeyTrigger(KeyInput.KEY_R));
+	    inputManager.addMapping("NextMacro", new KeyTrigger(KeyInput.KEY_T));
+	    inputManager.addMapping("PlayMacro", new KeyTrigger(KeyInput.KEY_Y));
+	    
+	    
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
 	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
 //	    inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
@@ -122,7 +139,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    inputManager.addListener(playerControl, "Left", "Right", "Up", "Down", "Jump");
 	    
 	    inputManager.addListener(blocListener, "Add", "Delete");
-	    inputManager.addListener(macros, "Add", "Delete", "MacroRecStop");
+	    inputManager.addListener(macros, "Add", "Delete", "MacroRecStop", "NextMacro", "PreviousMacro", "PlayMacro");
 	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp", "SwitchBlocDown", "CreateForm", "CreateFormFull");
 	    //inputManager.addListener(playerControl, "rotateLeft");
@@ -196,6 +213,13 @@ public class Minicraft extends SimpleApplication implements ScreenController{
       public void quit(){
           System.out.println("quit");
       }
+  	public BulletAppState getBulletAppState() {
+		return bulletAppState;
+	}
+
+	public Node getMap() {
+		return map;
+	}
 }
 
 
