@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Observable;
 
 import ui.IHUDControl;
+import util.Constant;
 
 import com.jme3.math.Vector3f;
 
@@ -12,12 +13,13 @@ public class PlayerSettingChoice extends Observable {
 	
 	private HashMap<Integer, String> bloc = new HashMap<Integer, String>();
 	private String[] listeTypeBloc = {"grass.jpg", "terre.jpg", "beton.jpg", "water.jpg", 
-			"wood.jpg", "puppy.jpg" , "sexy.jpg"};
+			"wood.jpg", "puppy.jpg" };
 	private int currentBlocType = 0;
 	
 	private Vector3f stockFirstVector;
 	private boolean isCreatingForm;
 	private boolean isFormFull;
+	private String mode;
     
     
     private static PlayerSettingChoice instance;
@@ -27,6 +29,7 @@ public class PlayerSettingChoice extends Observable {
 			bloc.put(i, listeTypeBloc[i]);
 		}
 		stockFirstVector = null;
+		mode = Constant.Bloc;
 	}
     
     public final static PlayerSettingChoice getInstance() {
@@ -38,7 +41,6 @@ public class PlayerSettingChoice extends Observable {
     }
 	
 	public void setHudControl(IHUDControl hudControl) {
-        hudControl.setBlocksTypes(listeTypeBloc);
 		this.addObserver(hudControl);
 	}
 	
@@ -63,12 +65,33 @@ public class PlayerSettingChoice extends Observable {
 		return bloc.get(currentBlocType);
 	}
 	
+	public String getMode() {
+		return mode;
+	}
+	
 	public void switchCreatingForm() {
-		if (isCreatingForm==true) {
-			initStockVector();
-		}
 		isCreatingForm = !isCreatingForm;
-		System.out.println("Create Form ? " + isCreatingForm);
+		setGoodForm();
+		setChanged();
+		notifyObservers();
+	}
+	
+	
+	public void switchFullForm() {
+		isFormFull = !isFormFull;
+		setGoodForm();
+		setChanged();
+		notifyObservers();
+	}
+	
+	private void setGoodForm() {
+		if (isCreatingForm && isFormFull) {
+			mode = Constant.FormFull;
+		} else if (isCreatingForm && !isFormFull) {
+			mode = Constant.Form;
+		} else {
+			mode = Constant.Bloc;
+		}
 	}
 	
 	public boolean isCreatingForm() {
@@ -85,11 +108,6 @@ public class PlayerSettingChoice extends Observable {
 	
 	public Vector3f getStockVector() {
 		return stockFirstVector;
-	}
-	
-	public void switchFullForm() {
-		isFormFull = !isFormFull;
-		System.out.println("Create Form Full ? " + isFormFull);
 	}
 	
 	public boolean isFormFull() {

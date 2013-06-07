@@ -21,5 +21,11 @@ public class Constant {
 	public static final String Y = "Y";
 	public static final String Z = "Z";
 	public static final String ERROR = "ERROR";
+	
+	// Constante pour le type de pinceau en cours
+	public static final String Macro = "ModeMacro.png"; // Macro
+	public static final String Form = "ModeForme.png"; // Forme
+	public static final String Bloc = "ModeBloc.png"; // Bloc
+	public static final String FormFull = "ModeFormePlein.png"; // Forme pleine
 
 }

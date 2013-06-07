@@ -31,12 +31,15 @@ public class MapControl implements IMapControl {
 	
 	public Node generateMap(int longueur, int largeur, int hauteur) {
 	 	map = new Node();
-    	for (int i=1 ; i < longueur ; i++ ) {
-    		for (int j = 1 ; j < largeur ; j++) {
-    			Vector3f coord = new Vector3f(i, 0, j);
-    			Block block = BlockFactory.createBlock(BlockType.Dirt, coord);
 
-    			this.attachBloc(block);
+    			for (int i=1 ; i <= longueur ; i++ ) {
+    				for (int j = 1 ; j <= largeur ; j++) {
+    					for (int k=1 ; k <= hauteur ; k++) {
+    						Vector3f coord = new Vector3f(i, k, j);
+    						Block block = BlockFactory.createBlock(BlockType.Dirt, coord);
+
+        			this.attachBloc(block);
+    			}
     		}
     	}
     	return map;

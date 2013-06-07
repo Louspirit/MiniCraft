@@ -68,7 +68,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    macros = new MacroStore();
 		mapControl = new MapControl(this, bulletAppState, macros);
 		macros.setMap(mapControl);
-		map = mapControl.generateMap(32, 32, 1);
+		map = mapControl.generateMap(32, 32, 4);
 		rootNode.attachChild(map);	
 		
 		// Initialisation des listeners
@@ -167,7 +167,8 @@ public class Minicraft extends SimpleApplication implements ScreenController{
     
     private void initHUD() {
         hudControl = new HUDControl(this, settings.getWidth(), settings.getHeight());
-        guiNode.attachChild(hudControl.generate());
+        guiNode.attachChild(hudControl.generatePictureBloc());
+        guiNode.attachChild(hudControl.generatePictureForm());
     }
     
     private ActionListener OptionListener = new ActionListener() {
