@@ -6,7 +6,7 @@ import com.jme3.scene.Spatial;
 
 public interface IHUDControl extends Observer {
 	
-	Spatial generate();
-	void setBlocksTypes(String[] types);
+	Spatial generatePictureBloc();
+	Spatial generatePictureForm();
 	
 }
