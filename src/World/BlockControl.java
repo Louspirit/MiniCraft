@@ -1,9 +1,5 @@
 package World;
 
-import java.util.HashMap;
-
-import jme3tools.navigation.StringUtil;
-
 import util.Constant;
 
 import Player.PlayerSettingChoice;
@@ -11,8 +7,6 @@ import Player.PlayerSettingChoice;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
-import com.sun.xml.internal.ws.util.StringUtils;
 
 import fenetre.Minicraft;
 

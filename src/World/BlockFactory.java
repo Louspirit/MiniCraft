@@ -2,20 +2,12 @@ package World;
 
 import util.BlockType;
 import util.Constant;
-
-import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 
 import fenetre.Minicraft;
 
 public class BlockFactory {
-	
-	private AssetManager assetManager;
-	
-	public BlockFactory(AssetManager assetManager) {
-		this.assetManager = assetManager;
-	}
-	
+		
 	public static Block createBlock(BlockType type, Vector3f coord) {
 		String blockTexture = "";
 		

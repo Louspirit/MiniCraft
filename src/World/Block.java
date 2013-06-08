@@ -31,6 +31,7 @@ public class Block {
 		blockBuilder(origin.geometry.getMaterial().clone(), coord);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void blockBuilder(Material material, Vector3f coord)
 	{
 		this.coord = coord;
