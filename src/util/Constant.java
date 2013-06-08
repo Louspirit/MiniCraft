@@ -4,7 +4,7 @@ public class Constant {
 	
 	public static final String TEXTURES_PATH = "Textures/";
 	public static final String GRASS = "grass.jpg";
-	public static final String GROUND = "terre.jpg";
+	public static final String DIRT = "terre.jpg";
 	public static final String CONCRETE = "beton.jpg";
 	public static final String WATER = "water.jpg";
 	public static final String WOOD = "wood.jpg";
