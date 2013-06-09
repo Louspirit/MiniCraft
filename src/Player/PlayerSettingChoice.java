@@ -56,7 +56,7 @@ public class PlayerSettingChoice extends Observable {
 	
 	public void setNextBlocType() 
 	{	
-		if (currentBlocType < listeTypeBloc.size()) {
+		if (currentBlocType < listeTypeBloc.size()-1) {
 			currentBlocType++;
 			setChanged();
 			notifyObservers();

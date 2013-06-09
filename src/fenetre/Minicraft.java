@@ -166,7 +166,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
     }
     
     private void initHUD() {
-        hudControl = new HUDControl(this, settings.getWidth(), settings.getHeight());
+        hudControl = new HUDControl(settings.getWidth(), settings.getHeight());
         guiNode.attachChild(hudControl.generatePictureBloc());
         guiNode.attachChild(hudControl.generatePictureForm());
     }
