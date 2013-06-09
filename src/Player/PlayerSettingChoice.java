@@ -20,20 +20,20 @@ public class PlayerSettingChoice extends Observable {
 	private boolean isCreatingForm;
 	private boolean isFormFull;
 	private String mode;
-    
+    private String path = "Textures/";
     
     private static PlayerSettingChoice instance;
     
     private PlayerSettingChoice() 
     {
     	listeTypeBloc = new LinkedList<BlockType>();
-
-    	listeTypeBloc.add(new BlockType("Terre", Constant.DIRT));
-    	listeTypeBloc.add(new BlockType("Pierre", Constant.CONCRETE));
-    	listeTypeBloc.add(new BlockType("Herbe", Constant.GRASS));
-    	listeTypeBloc.add(new BlockType("Bois", Constant.WOOD));
-    	listeTypeBloc.add(new BlockType("Eau", Constant.WATER));
-    	listeTypeBloc.add(new BlockType("Chiot", Constant.PUPPY));
+    	
+    	listeTypeBloc.add(new BlockType("Terre", path+Constant.DIRT));
+    	listeTypeBloc.add(new BlockType("Pierre", path+Constant.CONCRETE));
+    	listeTypeBloc.add(new BlockType("Herbe", path +Constant.GRASS));
+    	listeTypeBloc.add(new BlockType("Bois", path+Constant.WOOD));
+    	listeTypeBloc.add(new BlockType("Eau", path+Constant.WATER));
+    	listeTypeBloc.add(new BlockType("Chiot", path+Constant.PUPPY));
     	
     	currentBlocType = 0;//listeTypeBloc.listIterator();
 		stockFirstVector = null;
@@ -81,7 +81,7 @@ public class PlayerSettingChoice extends Observable {
 	}
 	
 	public String getMode() {
-		return mode;
+		return path+ mode;
 	}
 	
 	public void switchCreatingForm() {

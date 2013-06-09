@@ -110,7 +110,8 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	/**
 	 * Initialise la configuration des touches 
 	 */
-	private void setUpKeys() {
+	private void setUpKeys() {		
+	
 	    inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_Q));
 	    inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
 	    inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));

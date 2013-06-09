@@ -7,7 +7,6 @@ import Player.PlayerSettingChoice;
 import com.jme3.math.Vector2f;
 import com.jme3.scene.Spatial;
 import com.jme3.ui.Picture;
-import util.Constant;
 
 import fenetre.Minicraft;
 
@@ -33,7 +32,7 @@ public class HUDControl implements IHUDControl {
 	@Override
 	public Spatial generatePictureBloc() 
 	{ 
-		return generatePicture(pictureBloc, new Vector2f(-100, -100), Constant.TEXTURES_PATH + setting.getDefautType().getTexture());
+		return generatePicture(pictureBloc, new Vector2f(-100, -100), setting.getDefautType().getTexture());
 	}
 	
 	/**
@@ -42,7 +41,7 @@ public class HUDControl implements IHUDControl {
 	@Override
 	public Spatial generatePictureForm() 
 	{ 
-		return generatePicture(pictureForm, new Vector2f(-200, -100), Constant.TEXTURES_PATH + setting.getMode());
+		return generatePicture(pictureForm, new Vector2f(-200, -100), setting.getMode());
 	}
 	
 	private Spatial generatePicture(Picture picture, Vector2f position, String texturePath)
@@ -59,7 +58,7 @@ public class HUDControl implements IHUDControl {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		pictureBloc.setImage(Minicraft.getInstance().getAssetManager(), Constant.TEXTURES_PATH + setting.getTypeBloc().getTexture() , true);
-		pictureForm.setImage(Minicraft.getInstance().getAssetManager(), Constant.TEXTURES_PATH + setting.getMode() , true);
+		pictureBloc.setImage(Minicraft.getInstance().getAssetManager(),  setting.getTypeBloc().getTexture() , true);
+		pictureForm.setImage(Minicraft.getInstance().getAssetManager(),  setting.getMode() , true);
 	}
 }

@@ -2,7 +2,6 @@ package util;
 
 public class Constant {
 	
-	public static final String TEXTURES_PATH = "Textures/";
 	public static final String GRASS = "grass.jpg";
 	public static final String DIRT = "terre.jpg";
 	public static final String CONCRETE = "beton.jpg";
