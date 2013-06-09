@@ -1,20 +1,12 @@
 package util;
 
-public enum BlockType {
-	
-	Concrete("Pierre",Constant.CONCRETE), 
-	Dirt("Terre", Constant.DIRT), 
-	Grass("Herbe", Constant.GRASS),
-	Wood("Bois", Constant.WOOD),
-	Water("Eau", Constant.WATER),
-	Puppy("Chiot", Constant.PUPPY);
-	
+public final class BlockType {
 	
 	private final String name;
 	private final String texture;
 	
 	
-	private BlockType(String name, String texture)
+	public BlockType(String name, String texture)
 	{
 		this.name = name;
 		this.texture = texture;

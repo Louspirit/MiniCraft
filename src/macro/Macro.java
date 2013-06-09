@@ -8,9 +8,9 @@ import util.PCalcul;
 import com.jme3.collision.CollisionResult;
 import com.jme3.math.Vector3f;
 
-import World.Block;
-import World.BlockFactory;
 import World.IMapControl;
+import World.block.Block;
+import World.block.BlockFactory;
 
 public class Macro {
 

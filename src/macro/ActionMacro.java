@@ -2,7 +2,7 @@ package macro;
 
 import com.jme3.math.Vector3f;
 
-import World.Block;
+import World.block.Block;
 
 public class ActionMacro {
 

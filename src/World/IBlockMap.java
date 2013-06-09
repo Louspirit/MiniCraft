@@ -3,6 +3,8 @@
  */
 package World;
 
+import World.block.Block;
+
 /**
  * @author roulleau
  *

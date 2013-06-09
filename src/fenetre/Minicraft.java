@@ -66,13 +66,13 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    //bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 	    
 	    macros = new MacroStore();
-		mapControl = new MapControl(this, bulletAppState, macros);
+		mapControl = new MapControl(bulletAppState, macros);
 		macros.setMap(mapControl);
 		map = mapControl.generateMap(32, 32, 4);
 		rootNode.attachChild(map);	
 		
 		// Initialisation des listeners
-		blockControl = new BlockControl(mapControl, this);
+		blockControl = new BlockControl(mapControl);
 		
 		
 	    playerControl = new PlayerControl( cam);

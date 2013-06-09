@@ -8,8 +8,8 @@ import java.util.List;
 
 import com.jme3.input.controls.ActionListener;
 
-import World.Block;
 import World.IMapControl;
+import World.block.Block;
 
 
 /**

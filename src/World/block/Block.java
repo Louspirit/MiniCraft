@@ -1,6 +1,7 @@
-package World;
+package World.block;
 
-import com.jme3.asset.AssetManager;
+import World.Location;
+
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
@@ -19,14 +20,13 @@ public class Block {
 	private RigidBodyControl blocscape;
 
 	
-	//TODO supprimer l'argument 'asset manager' et remplacer les utilisation de new Block par la factory
-	public Block(AssetManager a,Texture texture, Vector3f coord) {
+	protected Block(Texture texture, Vector3f coord) {
 		Material material = new Material(Minicraft.getInstance().getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		material.setTexture("ColorMap", texture);
 		blockBuilder(material, coord);
 	}
 	
-	public Block(Block origin, Vector3f coord)
+	protected Block(Block origin, Vector3f coord)
 	{
 		blockBuilder(origin.geometry.getMaterial().clone(), coord);
 	}

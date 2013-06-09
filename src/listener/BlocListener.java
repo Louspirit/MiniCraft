@@ -3,6 +3,7 @@ package listener;
 import util.PCalcul;
 import Player.PlayerSettingChoice;
 import World.*;
+import World.block.Block;
 
 import com.jme3.collision.CollisionResult;
 import com.jme3.input.controls.ActionListener;

@@ -1,5 +1,7 @@
 package World;
 
+import World.block.Block;
+
 import com.jme3.math.Vector3f;
 
 /**
@@ -13,7 +15,7 @@ public interface IBlockControl {
 	
 	// public void removeBloc();
 	
-	public void put(Block block, Location location);
+	public boolean put(Block block, Vector3f coordNewBloc);
 	public Block newBlocNextTo(Block bloc, Vector3f direction, boolean attachBlock);
 	public boolean deleteBloc(Block bloc);
 	public boolean createLine(Vector3f start, Vector3f end);

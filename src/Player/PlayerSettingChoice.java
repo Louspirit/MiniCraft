@@ -1,9 +1,11 @@
 package Player;
 
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 
 import ui.IHUDControl;
+import util.BlockType;
 import util.Constant;
 
 import com.jme3.math.Vector3f;
@@ -11,10 +13,8 @@ import com.jme3.math.Vector3f;
 
 public class PlayerSettingChoice extends Observable {
 	
-	private HashMap<Integer, String> bloc = new HashMap<Integer, String>();
-	private String[] listeTypeBloc = {"grass.jpg", "terre.jpg", "beton.jpg", "water.jpg", 
-			"wood.jpg", "puppy.jpg" };
-	private int currentBlocType = 0;
+	private List<BlockType> listeTypeBloc;
+	private int currentBlocType;
 	
 	private Vector3f stockFirstVector;
 	private boolean isCreatingForm;
@@ -24,29 +24,39 @@ public class PlayerSettingChoice extends Observable {
     
     private static PlayerSettingChoice instance;
     
-    private PlayerSettingChoice() {
-		for (int i=0; i < listeTypeBloc.length ; i++) {
-			bloc.put(i, listeTypeBloc[i]);
-		}
+    private PlayerSettingChoice() 
+    {
+    	listeTypeBloc = new LinkedList<BlockType>();
+
+    	listeTypeBloc.add(new BlockType("Terre", Constant.DIRT));
+    	listeTypeBloc.add(new BlockType("Pierre", Constant.CONCRETE));
+    	listeTypeBloc.add(new BlockType("Herbe", Constant.GRASS));
+    	listeTypeBloc.add(new BlockType("Bois", Constant.WOOD));
+    	listeTypeBloc.add(new BlockType("Eau", Constant.WATER));
+    	listeTypeBloc.add(new BlockType("Chiot", Constant.PUPPY));
+    	
+    	currentBlocType = 0;//listeTypeBloc.listIterator();
 		stockFirstVector = null;
 		mode = Constant.Bloc;
 	}
     
-    public final static PlayerSettingChoice getInstance() {
-    	if (PlayerSettingChoice.instance == null) {
+    public final static PlayerSettingChoice getInstance() 
+    {
+    	if (PlayerSettingChoice.instance == null) 
+    	{
     		PlayerSettingChoice.instance = new PlayerSettingChoice();
     	}
-    	
     	return PlayerSettingChoice.instance;
     }
 	
-	public void setHudControl(IHUDControl hudControl) {
+	public void setHudControl(IHUDControl hudControl) 
+	{
 		this.addObserver(hudControl);
 	}
 	
-	public void setNextBlocType() {
-		
-		if (currentBlocType<listeTypeBloc.length-1) {
+	public void setNextBlocType() 
+	{	
+		if (currentBlocType < listeTypeBloc.size()) {
 			currentBlocType++;
 			setChanged();
 			notifyObservers();
@@ -54,15 +64,20 @@ public class PlayerSettingChoice extends Observable {
 	}
 	
 	public void setPreviousBlocType() {
-		if (currentBlocType>0) {
+		if (currentBlocType> 0) {
 			currentBlocType--;
 			setChanged();
 			notifyObservers();
 		}
 	}
 	
-	public String getTypeBloc() {
-		return bloc.get(currentBlocType);
+	public BlockType getTypeBloc() {
+		return listeTypeBloc.get(currentBlocType);
+	}
+	
+	public BlockType getDefautType()
+	{
+		return listeTypeBloc.get(0);
 	}
 	
 	public String getMode() {

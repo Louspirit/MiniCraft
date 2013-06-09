@@ -1,5 +1,7 @@
 package World;
 
+import World.block.Block;
+
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 

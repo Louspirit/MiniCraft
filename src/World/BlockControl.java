@@ -3,8 +3,8 @@ package World;
 import util.Constant;
 
 import Player.PlayerSettingChoice;
-
-import com.jme3.asset.AssetManager;
+import World.block.Block;
+import World.block.BlockFactory;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 
@@ -13,21 +13,32 @@ import fenetre.Minicraft;
 public class BlockControl implements IBlockControl {
 	
 	private IMapControl mapControl;
-	private Minicraft minicraft;
-	public AssetManager assetManager;
 	public PlayerSettingChoice setting;
 	
-	public BlockControl(IMapControl mapControl, Minicraft minicraft) {
+	public BlockControl(IMapControl mapControl) {
 		this.mapControl = mapControl;
-		this.minicraft = minicraft;
-		assetManager = this.minicraft.getAssetManager();
 		setting = PlayerSettingChoice.getInstance();
 	}
 
 	@Override
-	public void put(Block block, Location location) {
+	public boolean put(Block block, Vector3f coordNewBloc) {
 		// TODO Auto-generated method stub
 
+		int x1 = Math.round(coordNewBloc.getX());
+        int y1 = Math.round(coordNewBloc.getY());
+        int z1 = Math.round(coordNewBloc.getZ());
+        
+        Camera cam = Minicraft.getInstance().getCamera();
+        int x2 = Math.round(cam.getLocation().getX());
+        int y2 = Math.round(cam.getLocation().getY());
+        int z2 = Math.round(cam.getLocation().getZ());
+        
+        if (!(x1 == x2 && (y1 == (y2-1) || y1 == y2) && z1 == z2))
+        {
+            mapControl.attachBloc(BlockFactory.createBlock(setting.getTypeBloc(), coordNewBloc));     
+            return true;
+        }
+        return false;
 	}
 
 	@Override
@@ -36,21 +47,14 @@ public class BlockControl implements IBlockControl {
          Vector3f coordNewBloc = new Vector3f(
         		 coord.getX()+direction.x,coord.getY()+direction.y,coord.getZ()+direction.z);
                  
-         int x1 = Math.round(coordNewBloc.getX());
-         int y1 = Math.round(coordNewBloc.getY());
-         int z1 = Math.round(coordNewBloc.getZ());
-         
-         Camera cam = minicraft.getCamera();
-         int x2 = Math.round(cam.getLocation().getX());
-         int y2 = Math.round(cam.getLocation().getY());
-         int z2 = Math.round(cam.getLocation().getZ());
-         
-         if (attachBloc && !(x1 == x2 && (y1 == (y2-1) || y1 == y2) && z1 == z2)) {
-             mapControl.attachBloc(new Block(assetManager,assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc));     
-         } else {
-        	 return new Block(assetManager,assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), coordNewBloc);
+         if (attachBloc && put(bloc, coordNewBloc))
+         {
+             return null;    
+         } 
+         else
+         {
+        	 return BlockFactory.createBlock(setting.getTypeBloc(), coordNewBloc);
          }
-         return null;
 	}
 	
 	public boolean deleteBloc(Block bloc) {
@@ -75,12 +79,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(x1-x2);
 				if (x1 < x2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x+i,start.y,start.z));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x+i,start.y,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x-i,start.y,start.z));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x-i,start.y,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -92,12 +96,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(y1-y2);
 				if (y1 < y2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y+i,start.z));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x,start.y+i,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y-i,start.z));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x,start.y-i,start.z));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -109,12 +113,12 @@ public class BlockControl implements IBlockControl {
 				diff = Math.abs(z1-z2);
 				if (z1 < z2){
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y,start.z+i));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x,start.y,start.z+i));
 						mapControl.attachBloc(bloc);
 					}
 				} else {
 					for (int i=0;i<=diff;i++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(start.x,start.y,start.z-i));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(start.x,start.y,start.z-i));
 						mapControl.attachBloc(bloc);
 					}
 				}
@@ -187,38 +191,38 @@ public class BlockControl implements IBlockControl {
 		if (!full) {
 
 		for (int i=0 ; i <= diffX ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1,z1));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1+i,y1,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1,z2));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1+i,y1,z2));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2-i,y2,z1));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2-i,y2,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2-i,y2,z2));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2-i,y2,z2));
 			mapControl.attachBloc(bloc);
 		}
 		
 
 		
 		for (int i=0 ; i <= diffY ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1+i,z1));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1,y1+i,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1+i,z2));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1,y1+i,z2));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2-i,z1));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2,y2-i,z1));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2-i,z2));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2,y2-i,z2));
 			mapControl.attachBloc(bloc);
 		}
 	
 		
 		for (int i=0 ; i <= diffZ ; i++) {
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y1,z1+i));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1,y1,z1+i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1,y2,z1+i));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1,y2,z1+i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y1,z2-i));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2,y1,z2-i));
 			mapControl.attachBloc(bloc);
-			bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x2,y2,z2-i));
+			bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x2,y2,z2-i));
 			mapControl.attachBloc(bloc);
 		}
 		
@@ -227,7 +231,7 @@ public class BlockControl implements IBlockControl {
 			for (int i=0 ; i <= diffX ; i++) {
 				for (int j=0 ; j <= diffY ; j++) {
 					for (int k=0 ; k <= diffZ ; k++) {
-						bloc = new Block(assetManager, assetManager.loadTexture(Constant.TEXTURES_PATH + setting.getTypeBloc()), new Vector3f(x1+i,y1+j,z1+k));
+						bloc = BlockFactory.createBlock(setting.getTypeBloc(), new Vector3f(x1+i,y1+j,z1+k));
 						mapControl.attachBloc(bloc);
 					}
 				}
