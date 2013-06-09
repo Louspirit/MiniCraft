@@ -1,6 +1,7 @@
 package fenetre;
 
 import listener.BlocListener;
+import listener.MenuListener;
 import listener.SettingListener;
 import macro.MacroStore;
 import ui.HUDControl;
@@ -20,7 +21,6 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
-import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
@@ -43,22 +43,27 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	private MacroStore macros;
 	  
 	private Nifty nifty;
-    private Boolean MenuON=false;  
+    
 	 /** Defining the "Shoot" action: Determine what was hit and how to respond. */
 	 private BlocListener blocListener;
 	 // Listener pour les paramètres en cours (type de bloc, type de structure etc...)
 	 private SettingListener settingListener;
 	 private HUDControl hudControl;
+	 private MenuListener menuListener;
+	 
+	 private BitmapText crosshair;
 	
 	 private Minicraft(){}
 	 
 	@Override
 	public void simpleInitApp() {
-		
+		NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
+		nifty = niftyDisplay.getNifty();
+		 
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();
         initHUD();
-
+        
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
 	    stateManager.attach(bulletAppState);
@@ -69,15 +74,15 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 		mapControl = new MapControl(bulletAppState, macros);
 		macros.setMap(mapControl);
 		map = mapControl.generateMap(32, 32, 4);
-		rootNode.attachChild(map);	
+		rootNode.attachChild(map);
 		
-		// Initialisation des listeners
 		blockControl = new BlockControl(mapControl);
-		
-		
 	    playerControl = new PlayerControl( cam);
+	    
+	    // Initialisation des listeners
 	    blocListener = new BlocListener(mapControl, blockControl);
 	    settingListener = new SettingListener();
+	    menuListener = new MenuListener(niftyDisplay);
 	    
 	    setUpKeys();
 	    
@@ -110,8 +115,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	/**
 	 * Initialise la configuration des touches 
 	 */
-	private void setUpKeys() {		
-	
+	public void setUpKeys() {
 	    inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_Q));
 	    inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
 	    inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));
@@ -144,7 +148,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp", "SwitchBlocDown", "CreateForm", "CreateFormFull");
 	    //inputManager.addListener(playerControl, "rotateLeft");
-	    inputManager.addListener(OptionListener, "Menu");
+	    inputManager.addListener(menuListener, "Menu");
 	}
 
     @Override
@@ -157,13 +161,21 @@ public class Minicraft extends SimpleApplication implements ScreenController{
     protected void initCrossHairs() {
         guiNode.detachAllChildren();
         guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
-        BitmapText ch = new BitmapText(guiFont, false);
-        ch.setSize(guiFont.getCharSet().getRenderedSize() * 2);
-        ch.setText("+"); // crosshairs
-        ch.setLocalTranslation( // center
+        crosshair = new BitmapText(guiFont, false);
+        crosshair.setSize(guiFont.getCharSet().getRenderedSize() * 2);
+        crosshair.setText("+"); // crosshairs
+        crosshair.setLocalTranslation( // center
           settings.getWidth() / 2 - guiFont.getCharSet().getRenderedSize() / 3 * 2,
-          settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
-        guiNode.attachChild(ch);
+          settings.getHeight() / 2 + crosshair.getLineHeight() / 2, 0);
+        showCrosshair();
+    }
+    
+    public void showCrosshair() {
+    	guiNode.attachChild(crosshair);
+    }
+    
+    public void hideCrosshair() {
+    	guiNode.detachChild(crosshair);
     }
     
     private void initHUD() {
@@ -172,34 +184,6 @@ public class Minicraft extends SimpleApplication implements ScreenController{
         guiNode.attachChild(hudControl.generatePictureForm());
     }
     
-    private ActionListener OptionListener = new ActionListener() {
-        public void onAction(String name, boolean keyPressed, float tpf) {
-          if (name.equals("Menu") && !keyPressed) {      
-          	if(!MenuON){
-              NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager,inputManager,
-                                                                audioRenderer,guiViewPort);
-              nifty = niftyDisplay.getNifty();
-              
-              nifty.fromXml("XML/Menu.xml", "start");
-
-              // attach the nifty display to the gui view port as a processor
-              guiViewPort.addProcessor(niftyDisplay);
-              
-              // disable the fly cam
-              flyCam.setEnabled(false);
-              //flyCam.setDragToRotate(false);
-              MenuON = true;
-  	        }else{
-  	        	guiViewPort.clearProcessors();
-  	        	flyCam.setEnabled(true);
-  	            //flyCam.setDragToRotate(true);
-  	        	
-  	            MenuON = false;
-  	        }
-          }
-       }
-     };
-      
       public void bind(Nifty nifty, Screen screen) {
           System.out.println("bind( " + screen.getScreenId() + ")");
       }
