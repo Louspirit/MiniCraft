@@ -43,10 +43,8 @@ public class MacroStore implements ActionListener{
 		if(name.equals("MacroRecStop") && !value)
 		{
 			enregistre = ! enregistre;
-			System.out.println("StartStop");
 			if(!enregistre && macroActuelle != null)
 			{
-				System.out.println("Stop recording macro : "+macroActuelle.getNom());
 				this.liste.add(this.macroActuelle);
 				this.macroActuelle = null;
 			}
@@ -84,7 +82,6 @@ public class MacroStore implements ActionListener{
 			{
 				this.macroActuelle = new Macro(NAME+compt,bloc.getCoord());
 				compt++;
-				System.out.println("Start recording macro : "+macroActuelle.getNom());
 			}
 			this.macroActuelle.recordMacro(action, bloc, bloc.getCoord())	;		
 		}
@@ -94,7 +91,6 @@ public class MacroStore implements ActionListener{
 	{
 		if(liste.size() > 0)
 		{	
-			System.out.println("Replay macro n°"+marqueur+" : "+liste.get(marqueur).getNom());
 			liste.get(marqueur).replay(carteGlobale);
 		}
 		
