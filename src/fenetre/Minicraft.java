@@ -38,7 +38,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	private Node map;
-
+	private MyScreenController controller = new MyScreenController(this);
 	private IBlockControl blockControl;
 	private MacroStore macros;
 	  
@@ -82,7 +82,7 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 	    // Initialisation des listeners
 	    blocListener = new BlocListener(mapControl, blockControl);
 	    settingListener = new SettingListener();
-	    menuListener = new MenuListener(niftyDisplay);
+	    menuListener = new MenuListener(niftyDisplay,controller);
 	    
 	    setUpKeys();
 	    

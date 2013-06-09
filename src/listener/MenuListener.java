@@ -7,13 +7,15 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
 
 import fenetre.Minicraft;
+import fenetre.MyScreenController;
 
 public class MenuListener implements ActionListener {
 	private Boolean MenuON=false;
 	private NiftyJmeDisplay niftyDisplay;
-	
-	public MenuListener(NiftyJmeDisplay niftyDisplay) {
+	private MyScreenController controller ;
+	public MenuListener(NiftyJmeDisplay niftyDisplay, MyScreenController menuController) {
 		this.niftyDisplay = niftyDisplay;
+		this.controller = menuController;
 	}
 	
 	@Override
@@ -26,7 +28,7 @@ public class MenuListener implements ActionListener {
 			if (!MenuON) {
 				// attach the nifty display to the gui view port as a processor
 				guiViewPort.addProcessor(niftyDisplay);
-				niftyDisplay.getNifty().fromXml("XML/Menu.xml", "start");
+				niftyDisplay.getNifty().fromXml("XML/Menu.xml", "start",controller);
 				// disable the fly cam
 				flyCam.setEnabled(false);
 				//flyCam.setDragToRotate(false);

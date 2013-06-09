@@ -3,11 +3,42 @@
 www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://niftygui.
 sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
 <!-- Nifty XML content goes in here -->
-<screen id="start">
+<screen id="start" controller="fenetre.MyScreenController">
 <layer childLayout="center">
-<panel width="50%" height="50%" backgroundImage="Textures/menu_pixel.png" childLayout="vertical">
-<text font="aurulent-sans-16.fnt" color="#ffff"
-text="MENU - QUE VOULEZ VOUS FAIRE ???" />
+<panel id="p_principal" width="50%" height="50%" backgroundImage="Textures/menu_pixel.png" childLayout="vertical">
+	<panel id="p_sup" width="100%" height="17%" childLayout="horizontal">
+		 <panel id="p_supg" height="50%" width="50%" childLayout="horizontal">  
+				<image filename="Textures/exit.png" height="50px" width="70px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+		  </panel>
+		  <panel id="p_title" height="50%" width="50%" childLayout="center">
+			  	<text font="aurulent-sans-16.fnt" color="#ffff"
+				text="MENU" />
+		  </panel>
+	</panel>
+	<panel id="p_mil1" width="100%" height="33%"  childLayout="horizontal">
+		<panel id="p_mil1g" width="50%" height="33%"  childLayout="horizontal">
+			<text font="aurulent-sans-16.fnt" color="#ffff"
+			text="panel mileu1 gauche" />
+		</panel>
+		<panel id="p_mil1d" width="50%" height="33%"  childLayout="horizontal">
+			<text font="aurulent-sans-16.fnt" color="#ffff"
+			text="panel mileu1 droit" />
+		</panel>
+	</panel>
+	<panel id="p_mil2" width="100%" height="33%"  childLayout="horizontal">
+		<panel id="p_mil2g" width="50%" height="33%"  childLayout="horizontal">
+			<text font="aurulent-sans-16.fnt" color="#ffff"
+			text="panel mileu2 gauche" />
+		</panel>
+		<panel id="p_mil2d" width="50%" height="33%"  childLayout="horizontal">
+			<text font="aurulent-sans-16.fnt" color="#ffff"
+			text="panel mileu2 droit" />
+		</panel>
+	</panel>
+	<panel id="p_inf" width="100%" height="17%" childLayout="horizontal">
+		<text font="aurulent-sans-16.fnt" color="#ffff"
+		text="panel inférieur" />
+	</panel>
 </panel>
 
 </layer>
