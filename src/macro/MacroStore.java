@@ -98,9 +98,7 @@ public class MacroStore implements ActionListener{
 	
 	private void changeMacro(int dif)
 	{
-		
-		if(liste.size()>0)
-		{
+		if (marqueur==0 && dif>0 || marqueur==liste.size() && dif<0 || marqueur!=0 && marqueur!=liste.size()) {
 			System.out.println("Change macro ! "+dif);
 			marqueur = (marqueur+dif)%liste.size();
 		}
