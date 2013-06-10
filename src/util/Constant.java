@@ -1,7 +1,7 @@
 package util;
 
 public class Constant {
-	
+	//Import textures
 	public static final String GRASS = "grass.jpg";
 	public static final String DIRT = "terre.jpg";
 	public static final String CONCRETE = "beton.jpg";
@@ -9,6 +9,14 @@ public class Constant {
 	public static final String WOOD = "wood.jpg";
 	public static final String PUPPY = "puppy.jpg";
 
+	//Numero de bloc
+	public static final int Bloc_Terre = 0;
+	public static final int Bloc_Beton = 1;
+	public static final int Bloc_Herbe = 2;
+	public static final int Bloc_Bois = 3;
+	public static final int Bloc_Eau = 4;
+	public static final int Bloc_Chiot = 5;
+	
 	// Direction pour poser nouveau bloc
 	public static final String Above = "Above";
 	public static final String Right = "Right";

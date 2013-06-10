@@ -28,29 +28,14 @@ import com.jme3.input.controls.MouseButtonTrigger;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-
+/**
+ * Classe principale du jeu Minicraft , un MineCraft-like permettant d'enregistrer des macros et de les rejouer, 
+ * de créer de grandes surfaces grâce au rectangle à dimension variable
+ * @author Guillaume E., Victor R., Benjamin B., Anthony O.
+ *
+ */
 public class Minicraft extends SimpleApplication{
 	
-	/**
-	 * @return the blocListener
-	 */
-	public BlocListener getBlocListener() {
-		return blocListener;
-	}
-
-	/**
-	 * @return the settingListener
-	 */
-	public SettingListener getSettingListener() {
-		return settingListener;
-	}
-
-	/**
-	 * @return the menuListener
-	 */
-	public MenuListener getMenuListener() {
-		return menuListener;
-	}
 
 	private static Minicraft instance;
 	
@@ -103,7 +88,7 @@ public class Minicraft extends SimpleApplication{
 	    // Initialisation des listeners
 	    blocListener = new BlocListener(mapControl, blockControl);
 	    settingListener = new SettingListener();
-	    menuListener = new MenuListener(niftyDisplay,controller);
+	    menuListener = new MenuListener(niftyDisplay,controller,macros);
 	    
 	    setUpKeys();
 	    
@@ -217,6 +202,28 @@ public class Minicraft extends SimpleApplication{
 
 	public Node getMap() {
 		return map;
+	}
+	
+
+	/**
+	 * @return the blocListener
+	 */
+	public BlocListener getBlocListener() {
+		return blocListener;
+	}
+
+	/**
+	 * @return the settingListener
+	 */
+	public SettingListener getSettingListener() {
+		return settingListener;
+	}
+
+	/**
+	 * @return the menuListener
+	 */
+	public MenuListener getMenuListener() {
+		return menuListener;
 	}
 }
 

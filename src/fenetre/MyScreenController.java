@@ -2,6 +2,8 @@ package fenetre;
 
 import java.util.List;
 
+import util.Constant;
+
 import de.lessvoid.nifty.*;
 import de.lessvoid.nifty.screen.*;
 import de.lessvoid.nifty.controls.*;
@@ -9,10 +11,16 @@ import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
 
+/**
+ * Classe controllant le menu de Minicraft
+ * Repercute les configurations du joueurs
+ * @author Guillaume
+ *
+ */
 public class MyScreenController implements ScreenController
 {   
     protected Minicraft game;
-    
+    private String texture = "Terre";
      
     public MyScreenController(Minicraft game)
     {
@@ -51,6 +59,27 @@ public class MyScreenController implements ScreenController
      */
     public void appliquerChangements(){
      	  System.out.println("le joueur a cliqué sur OK");
+     	  if("Terre".equals(texture)){
+     		  game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Terre);
+     	  }
+     	 if("Herbe".equals(texture)){
+    		  game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Herbe);
+    	  }
+     	 if("Beton".equals(texture)){
+     		 game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Beton);
+     	 }	
+     	 if("Eau".equals(texture)){
+     		 game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Eau);
+     	 }
+     	 if("Chiot".equals(texture)){
+     		 game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Chiot);
+     	 }
+     	 if("Bois".equals(texture)){
+    		 game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Bois);
+    	 }
+     	 
+     	 //Ferme le menu maintenant que tous les changements sont faits
+     	 cancel();
      }
     
     /**
@@ -84,7 +113,7 @@ public class MyScreenController implements ScreenController
      */
     @NiftyEventSubscriber(id="texture_bloc")
     public void onRadioGroup1Changed(final String id, final RadioButtonGroupStateChangedEvent event) {
-      System.out.println("RadioButton [" + event.getSelectedId() + "] is now selected. The old selection was [" + event.getPreviousSelectedId() + "]");
+      texture = event.getSelectedId();
     }
     
     /**

@@ -29,7 +29,7 @@ public class PlayerSettingChoice extends Observable {
     	listeTypeBloc = new LinkedList<BlockType>();
     	
     	listeTypeBloc.add(new BlockType("Terre", path+Constant.DIRT));
-    	listeTypeBloc.add(new BlockType("Pierre", path+Constant.CONCRETE));
+    	listeTypeBloc.add(new BlockType("Beton", path+Constant.CONCRETE));
     	listeTypeBloc.add(new BlockType("Herbe", path +Constant.GRASS));
     	listeTypeBloc.add(new BlockType("Bois", path+Constant.WOOD));
     	listeTypeBloc.add(new BlockType("Eau", path+Constant.WATER));
@@ -73,6 +73,12 @@ public class PlayerSettingChoice extends Observable {
 	
 	public BlockType getTypeBloc() {
 		return listeTypeBloc.get(currentBlocType);
+	}
+	
+	public void setTypeBloc(int newCurrentBlocType) {
+		currentBlocType = newCurrentBlocType;
+		setChanged();
+		notifyObservers();
 	}
 	
 	public BlockType getDefautType()

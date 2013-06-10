@@ -13,6 +13,7 @@ import World.block.Block;
 
 
 /**
+ * Classe permettant de stocker les macros créées
  * @author roulleau
  *
  */
@@ -26,7 +27,7 @@ public class MacroStore implements ActionListener{
 	
 	private final String NAME = "macro";
 	private static int compt =0;
-	
+
 	public MacroStore()
 	{
 		liste = new LinkedList<Macro>();
@@ -102,5 +103,12 @@ public class MacroStore implements ActionListener{
 			System.out.println("Change macro ! "+dif);
 			marqueur = (marqueur+dif)%liste.size();
 		}
+	}
+	
+	/**
+	 * @return the liste de macros enregistrés
+	 */
+	public List<Macro> getListe() {
+		return liste;
 	}
 }

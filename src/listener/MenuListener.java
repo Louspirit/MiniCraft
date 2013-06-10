@@ -1,5 +1,11 @@
 package listener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import macro.Macro;
+import macro.MacroStore;
+
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
@@ -12,13 +18,20 @@ import de.lessvoid.nifty.screen.Screen;
 import fenetre.Minicraft;
 import fenetre.MyScreenController;
 
+/**
+ * Permet de lancer la création menu de Minicraft, dans lequel on peut configurer les types de contruction voulues 
+ * @author Guillaume
+ *
+ */
 public class MenuListener implements ActionListener {
 	private Boolean MenuON=false;
 	private NiftyJmeDisplay niftyDisplay;
 	private MyScreenController controller ;
-	public MenuListener(NiftyJmeDisplay niftyDisplay, MyScreenController menuController) {
+	private MacroStore macroStore;
+	public MenuListener(NiftyJmeDisplay niftyDisplay, MyScreenController menuController,MacroStore macroStore) {
 		this.niftyDisplay = niftyDisplay;
 		this.controller = menuController;
+		this.macroStore = macroStore;
 	}
 	
 	@Override
@@ -75,9 +88,11 @@ public class MenuListener implements ActionListener {
      */
     public void fillMyListBox(Screen screen) {
       ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
-      listBox.addItem("a");
-      listBox.addItem("b");
-      listBox.addItem("c");
+      List<Macro> macros = macroStore.getListe();
+      for(Macro macro : macros){
+    	  listBox.addItem(macro.getNom());
+      }
+    
     }
 
 }

@@ -12,6 +12,11 @@ import World.IMapControl;
 import World.block.Block;
 import World.block.BlockFactory;
 
+/**
+ * Classe permettant d'enregistrer et de rejouer des macros
+ * @author Guillaume
+ *
+ */
 public class Macro {
 
 	private String nom;

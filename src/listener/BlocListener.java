@@ -9,6 +9,11 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Vector3f;
 
+/**
+ * Classe permettant de poser et supprimer des blocs
+ * @author Guillaume
+ *
+ */
 public class BlocListener implements ActionListener {
 
 	private IMapControl mapControl;
