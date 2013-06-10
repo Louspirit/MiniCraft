@@ -6,6 +6,9 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
 
+import de.lessvoid.nifty.controls.ListBox;
+import de.lessvoid.nifty.screen.Screen;
+
 import fenetre.Minicraft;
 import fenetre.MyScreenController;
 
@@ -29,6 +32,7 @@ public class MenuListener implements ActionListener {
 				// attach the nifty display to the gui view port as a processor
 				guiViewPort.addProcessor(niftyDisplay);
 				niftyDisplay.getNifty().fromXml("XML/Menu.xml", "start",controller);
+				fillMyListBox(niftyDisplay.getNifty().getCurrentScreen());
 				// disable the fly cam
 				flyCam.setEnabled(false);
 				//flyCam.setDragToRotate(false);
@@ -61,5 +65,15 @@ public class MenuListener implements ActionListener {
   	        }
           }
 	}
+	
+	/**
+     * Fill the listbox with items. In this case with Strings.
+     */
+    public void fillMyListBox(Screen screen) {
+      ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
+      listBox.addItem("a");
+      listBox.addItem("b");
+      listBox.addItem("c");
+    }
 
 }

@@ -3,45 +3,95 @@
 www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://niftygui.
 sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
 <!-- Nifty XML content goes in here -->
+<useStyles filename="nifty-default-styles.xml" />
+<useControls filename="nifty-default-controls.xml" />
 <screen id="start" controller="fenetre.MyScreenController">
 <layer childLayout="center">
 <panel id="p_principal" width="50%" height="50%" backgroundImage="Textures/menu_pixel.png" childLayout="vertical">
 	<panel id="p_sup" width="100%" height="17%" childLayout="horizontal">
-		 <panel id="p_supg" height="50%" width="50%" childLayout="horizontal">  
-				<image filename="Textures/exit.png" height="50px" width="70px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+		 <panel id="p_supg" height="50%" width="10%" childLayout="horizontal">  
+				<image filename="Textures/exit.png" height="40px" width="60px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
 		  </panel>
-		  <panel id="p_title" height="50%" width="50%" childLayout="center">
-			  	<text font="aurulent-sans-16.fnt" color="#ffff"
-				text="MENU" />
+		  <panel id="p_title" height="50%" width="90%" childLayout="center">
+			  	<text font="aurulent-sans-16.fnt" color="#ffff" text="MENU - MINICRAFT" textHAlign="left" textVAlign="center"/>
 		  </panel>
 	</panel>
-	<panel id="p_mil1" width="100%" height="33%"  childLayout="horizontal">
-		<panel id="p_mil1g" width="50%" height="33%"  childLayout="horizontal">
-			<text font="aurulent-sans-16.fnt" color="#ffff"
-			text="panel mileu1 gauche" />
+	<panel id="p_mil1" width="97%" height="33%"  childLayout="horizontal" paddingLeft="3%">
+		<panel id="p_mil1g" width="50%" height="92%"  childLayout="vertical" RightPadding="5px">
+		<text font="aurulent-sans-16.fnt" color="#ffff" text="Type de forme" align="center"/>
+			<control id="type_forme" name="radioButtonGroup"/>
+			  <panel childLayout="vertical" backgroundColor="#8001" width="100%" height="75%" >
+			    <effect>
+			      <onActive name="border" color="#0008" />
+			    </effect>
+			    <panel childLayout="horizontal">
+			      <control name="label" text="Bloc par défaut" />
+			      
+			      <control name="radioButton" id="Bloc par défaut" group="type_forme" />
+			    </panel>
+			    <panel childLayout="horizontal" >
+			      <control name="label" text="Rectangle"/>
+			      <control name="radioButton" id="Rectangle" group="type_forme" />
+			    </panel>
+			    <panel childLayout="horizontal">
+			      <control name="label" text="Macro"/>
+			      <control name="radioButton" id="Macro" group="type_forme" />
+			    </panel>
+			</panel>
 		</panel>
-		<panel id="p_mil1d" width="50%" height="33%"  childLayout="horizontal">
-			<text font="aurulent-sans-16.fnt" color="#ffff"
-			text="panel mileu1 droit" />
+		<panel id="p_mil1d" childLayout="vertical">
+		<text font="aurulent-sans-16.fnt" color="#ffff" text="Texture de bloc" align="center"/>
+			<panel childLayout="horizontal" backgroundColor="#8001" height="69%">
+				<effect>
+			      <onActive name="border" color="#0008" />
+			    </effect>
+				<panel id="p_mil1d1"  childLayout="vertical">
+					  <control id="texture_bloc" name="radioButtonGroup"/>
+					  <panel childLayout="vertical" width="100%" height="75%">
+						    <panel childLayout="horizontal">
+						      <control name="label" text="Terre" />
+						      <control name="radioButton" id="Terre" group="texture_bloc" />
+						    </panel>
+						    <panel childLayout="horizontal">
+						      <control name="label" text="Beton" />
+						      <control name="radioButton" id="beton" group="texture_bloc" />
+						    </panel>
+						    <panel childLayout="horizontal">
+						      <control name="label" text="Herbe" />
+						      <control name="radioButton" id="herbe" group="texture_bloc" />
+						    </panel>
+					   </panel>
+				</panel>
+				<panel id="p_mil1d2" childLayout="vertical" paddingTop="20px" paddingRight="40px">
+					    <panel childLayout="horizontal" >
+					      <control name="label" text="Eau"/>
+					      <control name="radioButton" id="eau" group="texture_bloc" />
+					    </panel>
+					    <panel childLayout="horizontal">
+					      <control name="label" text="Puppy" />
+					      <control name="radioButton" id="puppy" group="texture_bloc" />
+					    </panel>
+				</panel>
+			</panel>
 		</panel>
 	</panel>
-	<panel id="p_mil2" width="100%" height="33%"  childLayout="horizontal">
-		<panel id="p_mil2g" width="50%" height="33%"  childLayout="horizontal">
-			<text font="aurulent-sans-16.fnt" color="#ffff"
-			text="panel mileu2 gauche" />
-		</panel>
-		<panel id="p_mil2d" width="50%" height="33%"  childLayout="horizontal">
-			<text font="aurulent-sans-16.fnt" color="#ffff"
-			text="panel mileu2 droit" />
+	<panel id="p_mil2" width="97%" height="33%"  childLayout="vertical" backgroundColor="#8001" paddingLeft="3%">
+		<text font="aurulent-sans-16.fnt" color="#ffff"text="Macros enregristrées" />
+		<panel childLayout="horizontal" backgroundColor="#8001">
+			<panel id="p_mil2" width="80%" height="33%" childLayout="horizontal"  > 
+				<control id="myListBox" name="listBox" vertical="yes" horizontal="optional" displayItems="3" selection="Single" />
+			</panel>
 		</panel>
 	</panel>
 	<panel id="p_inf" width="100%" height="17%" childLayout="horizontal">
-		<text font="aurulent-sans-16.fnt" color="#ffff"
-		text="panel inférieur" />
+			<panel id="ok"  childLayout="horizontal" paddingLeft="60%" paddingTop="4%">  
+				<image filename="Textures/ok-bouton.png" height="47px" width="70px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+		  </panel>
+		  <panel id="annuler" childLayout="horizontal" paddingLeft="90%" >  
+				<image filename="Textures/bouton-annuler.png" height="50px" width="73px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+		  </panel>
 	</panel>
 </panel>
-
 </layer>
 </screen>
-
 </nifty>
