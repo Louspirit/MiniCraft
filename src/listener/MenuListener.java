@@ -69,8 +69,8 @@ public class MenuListener implements ActionListener {
   	        	flyCam.setEnabled(true);
   	            //flyCam.setDragToRotate(true);
   	        	inputManager.setCursorVisible(false);
-  	        	minicraft.setUpKeys();
   	        	minicraft.showCrosshair();
+  	        	minicraft.setUpKeys();
   	        	MenuON = false;
   	        }
           }

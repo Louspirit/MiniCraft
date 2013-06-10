@@ -19,6 +19,7 @@ public class PlayerSettingChoice extends Observable {
 	private Vector3f stockFirstVector;
 	private boolean isCreatingForm;
 	private boolean isFormFull;
+	private boolean isMacro;
 	private String mode;
     private String path = "Textures/";
     
@@ -81,6 +82,8 @@ public class PlayerSettingChoice extends Observable {
 		notifyObservers();
 	}
 	
+	
+
 	public BlockType getDefautType()
 	{
 		return listeTypeBloc.get(0);
@@ -89,6 +92,33 @@ public class PlayerSettingChoice extends Observable {
 	public String getMode() {
 		return path+ mode;
 	}
+	
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(String mode) {
+		this.mode = mode;
+		if(Constant.Form.equals(mode)){
+			isCreatingForm = true;
+			isFormFull = false;
+			isMacro = false;
+		}else if(Constant.FormFull.equals(mode)){
+			isCreatingForm = true;
+			isFormFull = true;
+			isMacro = false;
+		}else if(Constant.Bloc.equals(mode)){
+			isCreatingForm = false;
+			isFormFull = true;
+			isMacro = false;
+		}else if(Constant.Macro.equals(mode)){
+			isCreatingForm = false;
+			isFormFull = false;
+			isMacro = true;
+		}
+		setChanged();
+		notifyObservers();
+	}
+	
 	
 	public void switchCreatingForm() {
 		isCreatingForm = !isCreatingForm;
@@ -133,6 +163,13 @@ public class PlayerSettingChoice extends Observable {
 	
 	public boolean isFormFull() {
 		return isFormFull;
+	}
+
+	/**
+	 * @return the isMacro
+	 */
+	public boolean isMacro() {
+		return isMacro;
 	}
 
 }

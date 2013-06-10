@@ -95,13 +95,7 @@ public class Minicraft extends SimpleApplication{
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
 
 	}
-	
-	/**
-	 * @return the macros
-	 */
-	public MacroStore getMacros() {
-		return macros;
-	}
+
 
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
@@ -224,6 +218,14 @@ public class Minicraft extends SimpleApplication{
 	 */
 	public MenuListener getMenuListener() {
 		return menuListener;
+	}
+	
+	
+	/**
+	 * @return the macroStore
+	 */
+	public MacroStore getMacroStore() {
+		return macros;
 	}
 }
 

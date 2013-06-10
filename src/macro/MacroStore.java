@@ -88,7 +88,7 @@ public class MacroStore implements ActionListener{
 		}
 	}
 	
-	private void replayMacro()
+	public void replayMacro()
 	{
 		if(liste.size() > 0)
 		{	
@@ -101,8 +101,17 @@ public class MacroStore implements ActionListener{
 	{
 		if (marqueur==0 && dif>0 || marqueur==liste.size() && dif<0 || marqueur!=0 && marqueur!=liste.size()) {
 			System.out.println("Change macro ! "+dif);
-			marqueur = (marqueur+dif)%liste.size();
+			marqueur = (marqueur+dif)%liste.size(); // err div par Zero
 		}
+	}
+	
+	/**
+	 * Selectionne une macro dans la liste
+	 * @param dif
+	 */
+	public void choisirMacro(int num)
+	{
+		marqueur = num;
 	}
 	
 	/**

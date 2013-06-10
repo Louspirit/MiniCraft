@@ -2,6 +2,8 @@ package fenetre;
 
 import java.util.List;
 
+import macro.Macro;
+
 import util.Constant;
 
 import de.lessvoid.nifty.*;
@@ -21,6 +23,8 @@ public class MyScreenController implements ScreenController
 {   
     protected Minicraft game;
     private String texture = "Terre";
+    private String mode = "Bloc";
+    private String macroSelec = "";
      
     public MyScreenController(Minicraft game)
     {
@@ -58,8 +62,8 @@ public class MyScreenController implements ScreenController
      * appelé par le bouton CANCEL
      */
     public void appliquerChangements(){
-     	  System.out.println("le joueur a cliqué sur OK");
-     	  if("Terre".equals(texture)){
+     	  // MAJ de la texture des blocs
+		 if("Terre".equals(texture)){
      		  game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Terre);
      	  }
      	 if("Herbe".equals(texture)){
@@ -78,13 +82,37 @@ public class MyScreenController implements ScreenController
     		 game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Bois);
     	 }
      	 
+     	 //MAJ de la forme des blocs
+     	if("Bloc".equals(mode)){
+   		  	game.getSettingListener().getSetting().setMode(Constant.Bloc);
+	   	  }
+	   	 if("Rectangle".equals(mode)){
+	  		 game.getSettingListener().getSetting().setMode(Constant.Form);
+	  	  }
+	   	 if("Macro".equals(mode)){
+	   		 //On va chercher la macro selectionnée dans la liste des macros
+	   		 if("".equals(macroSelec)){
+	   			 //Balancer une popup "pas de macro disponible"
+	   		 }else{
+	   			game.getSettingListener().getSetting().setMode(Constant.Macro);
+	   			int indexMacro = 0;
+	   			List<Macro> listeM = game.getMacroStore().getListe();
+	   			for(Macro mac : listeM){
+	   				if( macroSelec.equals(mac.getNom())){
+	   					indexMacro = listeM.indexOf(mac); 
+	   				}
+	   			}
+	   			 game.getMacroStore().choisirMacro(indexMacro);
+	   		 }
+	   	 }	
+     	 
      	 //Ferme le menu maintenant que tous les changements sont faits
      	 cancel();
      }
     
     /**
      * Ferme le menu sans rien modifié
-     * appelé par le bouton CANCEL, revient au même que de rappuiyer sur le bouton pause
+     * appelé par le bouton CANCEL, revient au même que de rappuyer sur le bouton pause
      */
     public void cancel(){
     	Minicraft minicraft = Minicraft.getInstance();
@@ -95,8 +123,8 @@ public class MyScreenController implements ScreenController
     	guiViewPort.clearProcessors();
       	flyCam.setEnabled(true);
       	inputManager.setCursorVisible(false);
-      	minicraft.setUpKeys();
       	minicraft.showCrosshair();
+      	minicraft.setUpKeys();
       	minicraft.getMenuListener().setMenuON(false);
      }
     
@@ -105,7 +133,7 @@ public class MyScreenController implements ScreenController
      */
     @NiftyEventSubscriber(id="type_forme")
     public void onRadioGroup1Changed1(final String id, final RadioButtonGroupStateChangedEvent event) {
-      System.out.println("RadioButton [" + event.getSelectedId() + "] is now selected. The old selection was [" + event.getPreviousSelectedId() + "]");
+      mode = event.getSelectedId();
     }
     
     /**
@@ -122,8 +150,6 @@ public class MyScreenController implements ScreenController
     @NiftyEventSubscriber(id="myListBox")
     public void onMyListBoxSelectionChanged(final String id, final ListBoxSelectionChangedEvent<String> event) {
       List<String> selection = event.getSelection();
-      for (String selectedItem : selection) {
-        System.out.println("listbox selection [" + selectedItem + "]");
-      }
+      macroSelec = event.getSelection().get(0);
     }
 }  

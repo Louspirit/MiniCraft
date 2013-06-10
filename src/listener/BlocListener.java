@@ -9,6 +9,8 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.Vector3f;
 
+import fenetre.Minicraft;
+
 /**
  * Classe permettant de poser et supprimer des blocs
  * @author Guillaume
@@ -40,7 +42,7 @@ public class BlocListener implements ActionListener {
 					PlayerSettingChoice setting = PlayerSettingChoice.getInstance();
 					Block block = mapControl.getBlock(coord);
 					
-					if (name.equals("Add") && !setting.isCreatingForm()) 
+					if (name.equals("Add") && !setting.isCreatingForm() && !setting.isMacro()) 
 					{
 						blockControl.newBlocNextTo(block, PCalcul.calculDirection(coord, closest.getContactPoint()), true);
 					} 
@@ -59,6 +61,8 @@ public class BlocListener implements ActionListener {
 						{
 							setting.setStockVector(blockControl.newBlocNextTo(block, PCalcul.calculDirection(coord, closest.getContactPoint()), false).getCoord());
 						}
+					}else if(name.equals("Add") && setting.isMacro()){
+						Minicraft.getInstance().getMacroStore().replayMacro();
 					}
 				}
 			}		
