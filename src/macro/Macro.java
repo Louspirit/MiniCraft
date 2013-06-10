@@ -17,15 +17,15 @@ public class Macro {
 	private String nom;
 	private Vector3f pointInit;
 	private List<ActionMacro> actions;
-	
+
 	public Macro(String nom, Vector3f init)
 	{
 		this.nom=nom;
 		this.pointInit = init;
 		actions = new LinkedList<ActionMacro>();
 	}
-	
-	
+
+
 	public void recordMacro(ActionTypeMacro type, Block bloc, Vector3f cible)
 	{
 		this.actions.add(new ActionMacro(type, bloc, cible.subtract(pointInit)));
@@ -43,22 +43,22 @@ public class Macro {
 		{
 			Vector3f center =  target.getGeometry().getWorldBound().getCenter(), 
 					coord =PCalcul.calculDirection(center, target.getContactPoint()).add(center);
-			
-		for(ActionMacro action : actions)
-		{
-			System.out.print("action :"+action.getType()+ ",coord rel : "+action.getCoord());
-			if(action.getType() == ActionTypeMacro.addBlock)
+
+			for(ActionMacro action : actions)
 			{
-				System.out.println(", add : "+action.getCoord().add(coord).add(center));
-				map.attachBloc(BlockFactory.createCopyBlock(action.getBloc(), action.getCoord().add(coord)));
-			}
-			if(action.getType() == ActionTypeMacro.removeBlock)
-			{
-				System.out.println("Del"+ action.getCoord().add(coord));
-				map.detachBlock(map.getBlock(action.getCoord().add(coord)));
+				System.out.print("action :"+action.getType()+ ",coord rel : "+action.getCoord());
+				if(action.getType() == ActionTypeMacro.addBlock)
+				{
+					System.out.println(", add : "+action.getCoord().add(coord).add(center));
+					map.attachBloc(BlockFactory.createCopyBlock(action.getBloc(), action.getCoord().add(coord)));
+				}
+				if(action.getType() == ActionTypeMacro.removeBlock)
+				{
+					System.out.println("Del"+ action.getCoord().add(coord));
+					map.detachBlock(map.getBlock(action.getCoord().add(coord)));
+				}
 			}
 		}
-		}
-		
+
 	}
 }
