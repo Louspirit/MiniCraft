@@ -31,7 +31,7 @@ public class PlayerControl implements IPlayerControl {
 	    player.setJumpSpeed(18);
 	    player.setFallSpeed(13f);
 	    player.setGravity(90);
-	    player.setPhysicsLocation(new Vector3f(4, 5, 4));
+	    player.setPhysicsLocation(new Vector3f(4, 6, 4));
 
 	}
 	
