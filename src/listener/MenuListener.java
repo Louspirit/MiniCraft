@@ -24,10 +24,10 @@ public class MenuListener implements ActionListener {
 	@Override
 	public void onAction(String name, boolean keyPressed, float tpf) {
 		if (name.equals("Menu") && !keyPressed) {
-          	ViewPort guiViewPort = Minicraft.getInstance().getGuiViewPort();
-			FlyByCamera flyCam = Minicraft.getInstance().getFlyByCamera();
-			InputManager inputManager = Minicraft.getInstance().getInputManager();
-			
+			Minicraft minicraft = Minicraft.getInstance();
+          	ViewPort guiViewPort = minicraft.getGuiViewPort();
+			FlyByCamera flyCam = minicraft.getFlyByCamera();
+			InputManager inputManager = minicraft.getInputManager();
 			if (!MenuON) {
 				// attach the nifty display to the gui view port as a processor
 				guiViewPort.addProcessor(niftyDisplay);
@@ -48,7 +48,7 @@ public class MenuListener implements ActionListener {
 				inputManager.deleteMapping("Add");
 				inputManager.deleteMapping("Delete");
 				
-				Minicraft.getInstance().hideCrosshair();
+				minicraft.hideCrosshair();
 				
 				MenuON = true;
   	        }else{
@@ -56,16 +56,20 @@ public class MenuListener implements ActionListener {
   	        	flyCam.setEnabled(true);
   	            //flyCam.setDragToRotate(true);
   	        	inputManager.setCursorVisible(false);
-  	        	
-  	        	 Minicraft.getInstance().setUpKeys();
-  	        	 
-  	        	Minicraft.getInstance().showCrosshair();
-  	        	
-  	            MenuON = false;
+  	        	minicraft.setUpKeys();
+  	        	minicraft.showCrosshair();
+  	        	MenuON = false;
   	        }
           }
 	}
 	
+	/**
+	 * @param menuON the menuON to set
+	 */
+	public void setMenuON(Boolean menuON) {
+		MenuON = menuON;
+	}
+
 	/**
      * Fill the listbox with items. In this case with Strings.
      */

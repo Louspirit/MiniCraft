@@ -85,10 +85,10 @@ sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
 	</panel>
 	<panel id="p_inf" width="100%" height="17%" childLayout="horizontal">
 			<panel id="ok"  childLayout="horizontal" paddingLeft="60%" paddingTop="4%">  
-				<image filename="Textures/ok-bouton.png" height="47px" width="70px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+				<image filename="Textures/ok-bouton.png" height="47px" width="70px" visibleToMouse="true"> <interact onClick="appliquerChangements()"/> </image>
 		  </panel>
 		  <panel id="annuler" childLayout="horizontal" paddingLeft="90%" >  
-				<image filename="Textures/bouton-annuler.png" height="50px" width="73px" visibleToMouse="true"> <interact onClick="quitGame()"/> </image>
+				<image filename="Textures/bouton-annuler.png" height="50px" width="73px" visibleToMouse="true"> <interact onClick="cancel()"/> </image>
 		  </panel>
 	</panel>
 </panel>

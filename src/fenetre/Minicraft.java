@@ -29,8 +29,29 @@ import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
-public class Minicraft extends SimpleApplication implements ScreenController{
+public class Minicraft extends SimpleApplication{
 	
+	/**
+	 * @return the blocListener
+	 */
+	public BlocListener getBlocListener() {
+		return blocListener;
+	}
+
+	/**
+	 * @return the settingListener
+	 */
+	public SettingListener getSettingListener() {
+		return settingListener;
+	}
+
+	/**
+	 * @return the menuListener
+	 */
+	public MenuListener getMenuListener() {
+		return menuListener;
+	}
+
 	private static Minicraft instance;
 	
 	private IMapControl mapControl;
@@ -90,6 +111,13 @@ public class Minicraft extends SimpleApplication implements ScreenController{
 
 	}
 	
+	/**
+	 * @return the macros
+	 */
+	public MacroStore getMacros() {
+		return macros;
+	}
+
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
 		cam.setFrustumPerspective(45, (float) cam.getWidth() / cam.getHeight(), 0.01f, 1000);
@@ -183,22 +211,6 @@ public class Minicraft extends SimpleApplication implements ScreenController{
         guiNode.attachChild(hudControl.generatePictureBloc());
         guiNode.attachChild(hudControl.generatePictureForm());
     }
-    
-      public void bind(Nifty nifty, Screen screen) {
-          System.out.println("bind( " + screen.getScreenId() + ")");
-      }
-
-      public void onStartScreen() {
-          System.out.println("onStartScreen");
-      }
-
-      public void onEndScreen() {
-          System.out.println("onEndScreen");
-      }
-
-      public void quit(){
-          System.out.println("quit");
-      }
   	public BulletAppState getBulletAppState() {
 		return bulletAppState;
 	}
