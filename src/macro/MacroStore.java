@@ -90,7 +90,7 @@ public class MacroStore implements ActionListener{
 	
 	public void replayMacro()
 	{
-		if(liste.size() > 0)
+		if(liste.size() > 0 && liste.get(marqueur)!= null)
 		{	
 			liste.get(marqueur).replay(carteGlobale);
 		}
@@ -99,9 +99,14 @@ public class MacroStore implements ActionListener{
 	
 	private void changeMacro(int dif)
 	{
-		if (marqueur==0 && dif>0 || marqueur==liste.size() && dif<0 || marqueur!=0 && marqueur!=liste.size()) {
-			System.out.println("Change macro ! "+dif);
-			marqueur = (marqueur+dif)%liste.size(); // err div par Zero
+		if (liste.size()>0) {
+			
+			marqueur = (marqueur+dif)%liste.size();
+			if(marqueur < 0) 
+			{
+				marqueur = liste.size() -1;
+			}
+			System.out.println("Change macro marqueur :"+marqueur);
 		}
 	}
 	
