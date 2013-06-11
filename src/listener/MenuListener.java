@@ -66,12 +66,18 @@ public class MenuListener implements ActionListener {
 				
 				MenuON = true;
   	        }else{
+  	        	/*
   	        	guiViewPort.clearProcessors();
   	        	flyCam.setEnabled(true);
   	            //flyCam.setDragToRotate(true);
   	        	inputManager.setCursorVisible(false);
   	        	minicraft.showCrosshair();
   	        	minicraft.setUpKeys();
+  	        	MenuON = false;
+  	        	*/
+  	        	
+  	        	controller.cancel();
+  	        	
   	        	MenuON = false;
   	        }
           }

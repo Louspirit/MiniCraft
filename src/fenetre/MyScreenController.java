@@ -151,12 +151,14 @@ public class MyScreenController implements ScreenController
 		FlyByCamera flyCam = minicraft.getFlyByCamera();
 		InputManager inputManager = minicraft.getInputManager();
 		
-    	guiViewPort.clearProcessors();
-      	flyCam.setEnabled(true);
-      	inputManager.setCursorVisible(false);
+		guiViewPort.clearProcessors();
+		flyCam.setEnabled(true);
+		inputManager.setCursorVisible(false);
       	minicraft.showCrosshair();
-      	minicraft.setUpKeys();
+      	
       	minicraft.getMenuListener().setMenuON(false);
+      	
+      	minicraft.setUpKeys();
      }
     
     /**
