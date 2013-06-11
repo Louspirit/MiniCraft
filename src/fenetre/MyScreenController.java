@@ -9,6 +9,8 @@ import util.Constant;
 import de.lessvoid.nifty.*;
 import de.lessvoid.nifty.screen.*;
 import de.lessvoid.nifty.controls.*;
+import de.lessvoid.nifty.elements.Element;
+
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
@@ -25,7 +27,9 @@ public class MyScreenController implements ScreenController
     private String texture = "Terre";
     private String mode = "Bloc";
     private String macroSelec = "";
-     
+    Element exitPopup;
+    Element noMacroPopup;
+    
     public MyScreenController(Minicraft game)
     {
         this.game = game;
@@ -51,8 +55,29 @@ public class MyScreenController implements ScreenController
      * appelé par le bouton EXIT
      */
     public void quitGame(){
-     	  game.stop();
+    	//Balancer une popup "pas de macro disponible"
+		 	Nifty nifty = game.getMenuListener().getNiftyDisplay().getNifty();
+		 	exitPopup = nifty.createPopup("exitPopup");
+			nifty.showPopup(nifty.getCurrentScreen(), exitPopup.getId(), null);
+			//game.stop();
      }
+    
+    @NiftyEventSubscriber(id = "BtYes")
+    public void BtYesClicked(final String id, final ButtonClickedEvent event) {
+        game.stop();
+    }
+    
+    @NiftyEventSubscriber(id = "Accept")
+    public void BtAcceptClicked(final String id, final ButtonClickedEvent event) {
+    	Nifty nifty = game.getMenuListener().getNiftyDisplay().getNifty();
+	 	nifty.closePopup(noMacroPopup.getId());
+    }
+    
+    @NiftyEventSubscriber(id = "BtNo")
+    public void BtNoClicked(final String id, final ButtonClickedEvent event) {
+    	Nifty nifty = game.getMenuListener().getNiftyDisplay().getNifty();
+	 	nifty.closePopup(exitPopup.getId());
+   }
     
     /**
      * Applique tous les changements demandés dans le menu
@@ -62,6 +87,7 @@ public class MyScreenController implements ScreenController
      * appelé par le bouton CANCEL
      */
     public void appliquerChangements(){
+    	boolean erratum = false;
      	  // MAJ de la texture des blocs
 		 if("Terre".equals(texture)){
      		  game.getSettingListener().getSetting().setTypeBloc(Constant.Bloc_Terre);
@@ -93,6 +119,10 @@ public class MyScreenController implements ScreenController
 	   		 //On va chercher la macro selectionnée dans la liste des macros
 	   		 if("".equals(macroSelec)){
 	   			 //Balancer une popup "pas de macro disponible"
+	   			 	Nifty nifty = game.getMenuListener().getNiftyDisplay().getNifty();
+					noMacroPopup = nifty.createPopup("noMacroPopup");
+					nifty.showPopup(nifty.getCurrentScreen(), noMacroPopup.getId(), null);
+					erratum = true;
 	   		 }else{
 	   			game.getSettingListener().getSetting().setMode(Constant.Macro);
 	   			int indexMacro = 0;
@@ -105,9 +135,10 @@ public class MyScreenController implements ScreenController
 	   			 game.getMacroStore().choisirMacro(indexMacro);
 	   		 }
 	   	 }	
-     	 
-     	 //Ferme le menu maintenant que tous les changements sont faits
-     	 cancel();
+     	 if(!erratum){
+	     	 //Ferme le menu maintenant que tous les changements sont faits
+	     	 cancel();
+     	 }
      }
     
     /**

@@ -13,6 +13,7 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.ViewPort;
 
 import de.lessvoid.nifty.controls.ListBox;
+import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.screen.Screen;
 
 import fenetre.Minicraft;
@@ -76,6 +77,13 @@ public class MenuListener implements ActionListener {
           }
 	}
 	
+	/**
+	 * @return the niftyDisplay
+	 */
+	public NiftyJmeDisplay getNiftyDisplay() {
+		return niftyDisplay;
+	}
+
 	/**
 	 * @param menuON the menuON to set
 	 */
