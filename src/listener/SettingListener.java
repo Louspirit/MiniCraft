@@ -27,6 +27,7 @@ public class SettingListener implements ActionListener {
 			 setting.setPreviousBlocType();
 		 } else if (name.equals("CreateForm") && !keyPressed) {
 			 setting.switchCreatingForm();
+			 setting.setStockVector(null);
 		 }  else if (name.equals("CreateFormFull") && !keyPressed) {
 			 setting.switchFullForm();
 		 }
