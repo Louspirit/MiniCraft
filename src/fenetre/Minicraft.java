@@ -7,6 +7,7 @@ import macro.MacroStore;
 import ui.HUDControl;
 import Player.IPlayerControl;
 import Player.PlayerControl;
+import Player.PlayerSettingChoice;
 
 import World.BlockControl;
 import World.IBlockControl;
@@ -38,9 +39,9 @@ public class Minicraft extends SimpleApplication{
 	
 
 	private static Minicraft instance;
-	
 	private IMapControl mapControl;
 	private IPlayerControl playerControl;
+	private PlayerSettingChoice settingPlayer = PlayerSettingChoice.getInstance();
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	private Node map;
@@ -93,6 +94,13 @@ public class Minicraft extends SimpleApplication{
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
+	    
+	    // On crée une pyramide
+	    for (int i=0; i <= 6 ; i++ ) {
+	    	settingPlayer.setTypeBloc(3); // le bois
+		    blockControl.createRectangle(new Vector3f(20+i,5+i,20+i), new Vector3f(32-i,5+i,32-i), true);
+	    	settingPlayer.setTypeBloc(0); // la terre
+	    }
 
 	}
 
