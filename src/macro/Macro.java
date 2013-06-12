@@ -41,8 +41,13 @@ public class Macro {
 		CollisionResult target = PCalcul.targetBloc();
 		if(target != null)
 		{
-			Vector3f center =  target.getGeometry().getWorldBound().getCenter(), 
-					coord =PCalcul.calculDirection(center, target.getContactPoint()).add(center);
+			Vector3f center =  target.getGeometry().getWorldBound().getCenter(), direction = new Vector3f();
+			
+			if(actions.get(0).getType() == ActionTypeMacro.addBlock) 
+			{
+				direction = PCalcul.calculDirection(center, target.getContactPoint()); 
+			}
+			Vector3f coord = direction.add(center);
 
 			for(ActionMacro action : actions)
 			{
