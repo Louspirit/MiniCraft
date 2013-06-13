@@ -7,6 +7,7 @@ import macro.MacroStore;
 import ui.HUDControl;
 import Player.IPlayerControl;
 import Player.PlayerControl;
+import Player.PlayerSettingChoice;
 
 import World.BlockControl;
 import World.IBlockControl;
@@ -17,6 +18,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
+import com.jme3.util.SkyFactory;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
@@ -38,9 +40,9 @@ public class Minicraft extends SimpleApplication{
 	
 
 	private static Minicraft instance;
-	
 	private IMapControl mapControl;
 	private IPlayerControl playerControl;
+	private PlayerSettingChoice settingPlayer = PlayerSettingChoice.getInstance();
 	// Gestion de la physique
 	private BulletAppState bulletAppState;
 	private Node map;
@@ -69,6 +71,7 @@ public class Minicraft extends SimpleApplication{
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();
         initHUD();
+        initSky();
         
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
@@ -93,9 +96,18 @@ public class Minicraft extends SimpleApplication{
 	    setUpKeys();
 	    
 	    bulletAppState.getPhysicsSpace().add(playerControl.getPlayer());
-
+	    
+	    // On crée une pyramide
+	    for (int i=0; i <= 6 ; i++ ) {
+	    	settingPlayer.setTypeBloc(3); // le bois
+		    blockControl.createRectangle(new Vector3f(20+i,5+i,20+i), new Vector3f(32-i,5+i,32-i), true);
+	    	settingPlayer.setTypeBloc(0); // la terre
+	    }
 	}
-
+	
+	private void initSky() {
+		rootNode.attachChild(SkyFactory.createSky(assetManager, "Textures/Sky/Bright/BrightSky.dds", false));
+	}
 
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
@@ -157,6 +169,14 @@ public class Minicraft extends SimpleApplication{
     public void simpleUpdate(float tpf)
     {
         playerControl.walk();
+        
+        // delete default flycam wheel mapping
+        if (inputManager.hasMapping("FLYCAM_ZoomIn")) {
+            inputManager.deleteMapping("FLYCAM_ZoomIn");
+        }
+        if (inputManager.hasMapping("FLYCAM_ZoomOut")) {
+            inputManager.deleteMapping("FLYCAM_ZoomOut");
+        }
     }
   
     /** A centred plus sign to help the player aim. */
@@ -181,6 +201,9 @@ public class Minicraft extends SimpleApplication{
     }
     
     private void initHUD() {
+    	setDisplayFps(false); // to hide the FPS
+    	setDisplayStatView(false); // to hide the statistics 
+    	
         hudControl = new HUDControl(settings.getWidth(), settings.getHeight());
         guiNode.attachChild(hudControl.generatePictureBloc());
         guiNode.attachChild(hudControl.generatePictureForm());

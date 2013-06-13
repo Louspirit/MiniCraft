@@ -156,10 +156,8 @@ public class MyScreenController implements ScreenController
       	flyCam.setEnabled(true);
       	inputManager.setCursorVisible(false);
       	minicraft.showCrosshair();
-    	minicraft.getMenuListener().setMenuON(false);
-    	game.setUpKeys();
-      	//effacer le screen? 
-//      	game.getMenuListener().getNiftyDisplay().getNifty().exit();
+      	minicraft.setUpKeys();
+      	minicraft.getMenuListener().setMenuON(false);
      }
     
     /**
@@ -185,38 +183,5 @@ public class MyScreenController implements ScreenController
     public void onMyListBoxSelectionChanged(final String id, final ListBoxSelectionChangedEvent<String> event) {
       List<String> selection = event.getSelection();
       macroSelec = event.getSelection().get(0);
-    }
-    
-    /**
-     * Check the good radiobuttons
-     */
-    public void checkRadioButton(Screen screen) {
-  	  	String forme = "Bloc" ;
-   	  	String mode = game.getSettingListener().getSetting().getModeOnly();
-  	  	if(Constant.Form.equals(mode)){
-  			forme = "Rectangle";
-  		}else if(Constant.FormFull.equals(mode)){
-  			forme = "Rectangle";
-  		}else if(Constant.Bloc.equals(mode)){
-  			forme = "Bloc";
-  		}else if(Constant.Macro.equals(mode)){
-  			forme = "Macro";
-  		}
-			RadioButton radioboutonf = game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen().findNiftyControl(forme, RadioButton.class);
-			radioboutonf.select();
-  	  	String texture = game.getSettingListener().getSetting().getTypeBloc().toString();
-			RadioButton radioboutont = game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen().findNiftyControl(texture, RadioButton.class);
-			radioboutont.select();
-    }
-    
-    /**
-     * Fill the listbox with items. In this case with Strings.
-     */
-    public void fillMyListBox(Screen screen) {
-      ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
-      List<Macro> macros = game.getMacroStore().getListe();
-      for(Macro macro : macros){
-    	  listBox.addItem(macro.getNom());
-      }
     }
 }  

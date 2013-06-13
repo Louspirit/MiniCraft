@@ -54,7 +54,6 @@ public class MenuListener implements ActionListener {
 				guiViewPort.addProcessor(niftyDisplay);
 				niftyDisplay.cleanup();
 				niftyDisplay.getNifty().fromXml("XML/Menu.xml", "start",controller);
-				//fillMyListBox(niftyDisplay.getNifty().getCurrentScreen());
 				// disable the fly cam
 				flyCam.setEnabled(false);
 				inputManager.deleteMapping("Left");
@@ -77,14 +76,8 @@ public class MenuListener implements ActionListener {
 				minicraft.hideCrosshair();
 				
 				MenuON = true;
-  	        }else{
-  	        	guiViewPort.clearProcessors();
-  	        	flyCam.setEnabled(true);
-  	            //flyCam.setDragToRotate(true);
-  	        	inputManager.setCursorVisible(false);
-  	        	minicraft.showCrosshair();
-  	        	MenuON = false;
-  	        	minicraft.setUpKeys();
+  	        }else{	        	
+  	        	controller.cancel();	        	
   	        }
           }
 	}
@@ -102,8 +95,6 @@ public class MenuListener implements ActionListener {
 	public void setMenuON(Boolean menuON) {
 		MenuON = menuON;
 	}
-
-	
 
 	/**
 	 * @return the settingListener
