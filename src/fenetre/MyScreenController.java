@@ -211,7 +211,7 @@ public class MyScreenController implements ScreenController
 		else if(Constant.FormFull.equals(mode)){
 	   		  forme = "Rectangle";
 	   	}else if(Constant.Macro.equals(mode)){
-	   		  forme = "Rectangle";
+	   		  forme = "Macro";
 	   	}
 		RadioButton radiobuttonf = screen.findNiftyControl(forme , RadioButton.class); 
 		radiobuttonf.select();
