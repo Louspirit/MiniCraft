@@ -18,6 +18,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.math.Vector3f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
+import com.jme3.util.SkyFactory;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
@@ -70,6 +71,7 @@ public class Minicraft extends SimpleApplication{
 	    initCrossHairs(); // a "+" in the middle of the screen to help aiming			    			    
 		initCam();
         initHUD();
+        initSky();
         
 		/** Initialise la physique (collisions) */
 	    bulletAppState = new BulletAppState();
@@ -102,7 +104,10 @@ public class Minicraft extends SimpleApplication{
 	    	settingPlayer.setTypeBloc(0); // la terre
 	    }
 	}
-
+	
+	private void initSky() {
+		rootNode.attachChild(SkyFactory.createSky(assetManager, "Textures/Sky/Bright/BrightSky.dds", false));
+	}
 
 	private void initCam() {
 		cam.setLocation(new Vector3f(8, 2, 8));
@@ -201,6 +206,9 @@ public class Minicraft extends SimpleApplication{
     }
     
     private void initHUD() {
+    	setDisplayFps(false); // to hide the FPS
+    	setDisplayStatView(false); // to hide the statistics 
+    	
         hudControl = new HUDControl(settings.getWidth(), settings.getHeight());
         guiNode.attachChild(hudControl.generatePictureBloc());
         guiNode.attachChild(hudControl.generatePictureForm());
