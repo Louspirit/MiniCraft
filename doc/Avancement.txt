@@ -1,15 +1,37 @@
-PROJET MINICRAFT
+﻿PROJET MINICRAFT
  – 
 AVANCEMENT DU PROJET
+
+
+BRAUD Benjamin            ESCARIEUX Guillaume
+OLEA Anthony		   ROULLEAU Victor
 SPRINT 1 – Du 15/05/13 au 29/05/13
 •	Le 21/05/13
-Le partage des sources est disponible sur GitHub à l’adresse suivante : https://github.com/Louspirit/MiniCraft
+Le partage des sources est disponible sur GitHub à l’adresse suivante :
+https://github.com/Louspirit/MiniCraft
 Le dépôt contient également tous les documents relatifs au projet (graphes agiles, rapport d’avancement, tutoriel, etc…).
-Pour l’heure un fichier Minicraft.java contient le main.  Lancer le programme ouvre une fenêtre JMonkeyEngine  toute simple (écran noir).
+Pour l’heure un fichier Minicraft.java contient le main.  Lancer le programme ouvre une fenêtre JMonkeyEngine 3  toute simple (écran noir).
 •	Le 24/05/13
-L’architecture a été mise en place. Un nœud carte est ajouté au nœud racine. Sur le nœud est ajouté un nœud monde qui représentera la carte de base ( sur laquelle le joueur ne pourra pas interagir). Les autres éléments tels que les blocs posés par le joueur ou les blocs stockés dans des macros seront également des enfants attachés au nœud carte. 
+L’architecture a été mise en place. Un nœud « map » est ajouté au nœud racine. A l’initialisation, le nœud map contiendra le sol (constitué de 16x16 blocs). Les éléments tels que les blocs posés par le joueur ou les blocs stockés dans des macros seront attachés au nœud map. 
 •	Le 27/05/13
-Le monde plat est disponible (pour l’instant 16x16 cubes). Les textures des cubes sont personnalisables via l’AssetManager (voir assets/Textures). La gravité a été mise en place, le joueur peut marcher en vue FPS. Le système de collision a été mis en place(à corriger on traverse un peu le bloc). Des blocs peuvent être ajouté mais les coordonnées sont encore indécises.
+Le monde plat est disponible (pour l’instant 16x16 cubes). Les textures des cubes sont personnalisables via l’AssetManager (voir assets/Textures). La gravité a été mise en place, le joueur peut marcher en vue FPS (touches ZQSD). Le système de collision a été mis en place (à corriger car la caméra traverse un peu les blocs). Des blocs peuvent être ajoutés avec clic droit mais les coordonnées sont encore indécises.
 •	Le 28/05/13
-Il est possible à présent de sauter. Il est également possible de retirer des blocs. Les coordonnées pour ajouter et retirer des blocs sont à présent conformes à l’endroit cliqué. On peut ajouter des blocs en cliquant sur des zones accolées à un bloc existant. La portée pour ajouter et retirer des blocs a été ajustée (pour ne pas agir de loin). Reste à régler le problème de collision (on voit légèrement à travers les blocs). 
+Il est possible à présent de sauter avec la barre espace. Il est également possible de retirer des blocs avec le clic gauche. Les coordonnées pour ajouter et retirer des blocs sont à présent conformes à l’endroit cliqué. On peut ajouter des blocs en cliquant sur des zones accolées à un bloc existant. La portée pour ajouter et retirer des blocs a été ajustée (pour ne pas agir de loin). Reste à régler le problème de collision (on voit légèrement à travers les blocs). 
+•	Le 29/05/13
+Il est désormais possible de changer le type de bloc à poser, grâce à la roulette de la souris. Le système a été amélioré, on ne voit plus à travers les blocs. Cependant si on continue à avancer collé à un bloc, l’écran  tremble. La taille du joueur a été diminuée, Il est à présent possible de passer dans une porte de deux blocs. Fin du Sprint 1.
 
+Rétrospective
+L’efficacité du moteur graphique JMonkeyEngine et de ses tutoriels nous ont permis de réaliser le sprint au plus près de ce que nous imaginions. Nous aimerions améliorer pour le prochain sprint  les moyens techniques utilisés. Certaines méthodes sont dépréciées et nous souhaitons les mettre à jour. Nous avons fait ce choix afin d’être sûr de livrer de la business value, et cela s’est révélé un bon choix. Organisation : A partir du moment où nous avons défini l’ensemble des tâches pour le sprint 1, nous avons pu attribuer à chacun des tâches simples en autonomie pour ensuite effectuer ou terminer,  en pair programming, les tâches les plus complexes. Nous sommes satisfaits de notre rythme de travail et de l’intérêt du sujet, cela nous rassure quant au succès du projet intégral.  
+SPRINT 2 – Du 30/05/13 au 14/05/13
+•	Le 31/05/13
+Règlement des priorités sur le sprint 2. Accords sur les solutions technologiques. Début de l’implémentation du joueur. 
+•	Le 03/05/13
+Amélioration de la caméra du joueur : hauteur du joueur de deux cubes et passant sous une porte ( deux cubes de hauteur et un cube de largeur). Ajout de la fonction pinceau en appuyant sur la touche F. Cela permet de réaliser des grandes structures rapidement telles que des lignes et des rectangles. Il suffit de cliquer sur le deux coins du pavé opposés par une diagonale et la structure est créée. En cliquant sur G, cela active/désactive le mode « plein », sinon le pavé n’est constitué que des arrêtes. En choisissant les extrémités sur une seule ligne, cela créera une ligne.
+•	Le 04/05/13
+Ajout de HUD, une image dans le coin supérieur droit pour voir le type de bloc qui est actuellement sélectionné. Etablissement fonctionnel du menu, accessible par l’appui de la touche échap. Celui-ci permettra de choisir le type de macro : rectangle, etc… ; le type de bloc : béton, terre, … ; Une macro à jouer dans la liste des macros ; des boutons d’enregistrement de macro (début et fin) ; ainsi que des boutons OK ; Annuler et Quitter.
+•	Le 05/05/13
+Mis à jour du HUD : l’image de la texture de bloc en cours sera observer du PlayerSettingChoice et renseigne si l’on est en mode forme ou bloc. Il est possible d’afficher le menu à l’appui de la touche P. Il est toujours possible de se déplacer en même temps. Le problème est que lorsque l’on revient au jeu, le curseur n’est plus utilisable. 
+•	Le 07/05/13
+Création des macros. Ajout d’une image en haut à droite pour le mode de création en cours, si on est en mode normal, forme ou macro. Création du menu.	
+•	Le 12/06/13
+Finalisation du menu et correction de quelques bugs. Création diaporama pour soutenance orale.
