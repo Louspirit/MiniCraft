@@ -184,4 +184,39 @@ public class MyScreenController implements ScreenController
       List<String> selection = event.getSelection();
       macroSelec = event.getSelection().get(0);
     }
+    
+	/**
+	 * Fill the listbox with items. In this case with Strings.
+	 */
+    public void fillMyListBox(Screen screen) {
+      ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
+      List<Macro> macros = game.getMacroStore().getListe();
+      for(Macro macro : macros){
+     listBox.addItem(macro.getNom());
+      }
+    }
+    
+    /**
+	 * Fill the listbox with items. In this case with Strings.
+	 */
+    public void checkRadioButton(Screen screen) {
+    	String forme = "";
+    	String mode = game.getSettingListener().getSetting().getModeOnly();
+		if(Constant.Bloc.equals(mode)){
+     		  forme = "Bloc";
+     	}
+		else if(Constant.Form.equals(mode)){
+   		  	forme = "Rectangle";
+   	  	}
+		else if(Constant.FormFull.equals(mode)){
+	   		  forme = "Rectangle";
+	   	}else if(Constant.Macro.equals(mode)){
+	   		  forme = "Rectangle";
+	   	}
+		RadioButton radiobuttonf = screen.findNiftyControl(forme , RadioButton.class); 
+		radiobuttonf.select();
+		String texture = game.getSettingListener().getSetting().getTypeBloc().toString();
+		RadioButton radiobuttont = screen.findNiftyControl(texture , RadioButton.class); 
+		radiobuttont.select();
+    }
 }  
