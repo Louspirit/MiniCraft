@@ -5,6 +5,7 @@ import listener.MenuListener;
 import listener.SettingListener;
 import macro.MacroStore;
 import ui.HUDControl;
+import util.Constant;
 import Player.IPlayerControl;
 import Player.PlayerControl;
 import Player.PlayerSettingChoice;
@@ -99,9 +100,8 @@ public class Minicraft extends SimpleApplication{
 	    
 	    // On crée une pyramide
 	    for (int i=0; i <= 6 ; i++ ) {
-	    	settingPlayer.setTypeBloc(3); // le bois
+	    	settingPlayer.setTypeBloc(Constant.Bloc_Terre);
 		    blockControl.createRectangle(new Vector3f(20+i,5+i,20+i), new Vector3f(32-i,5+i,32-i), true);
-	    	settingPlayer.setTypeBloc(0); // la terre
 	    }
 	}
 	
