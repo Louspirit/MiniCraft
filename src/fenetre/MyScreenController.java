@@ -117,6 +117,9 @@ public class MyScreenController implements ScreenController
 	   	 if("Rectangle".equals(mode)){
 	  		 game.getSettingListener().getSetting().setMode(Constant.Form);
 	  	  }
+	   	 if("Rectangle_Plein".equals(mode)){
+	  		 game.getSettingListener().getSetting().setMode(Constant.FormFull);
+	  	  }
 	   	 if("Macro".equals(mode)){
 	   		 //On va chercher la macro selectionnée dans la liste des macros
 	   		 if("".equals(macroSelec)){
@@ -192,12 +195,13 @@ public class MyScreenController implements ScreenController
       ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
       List<Macro> macros = game.getMacroStore().getListe();
       for(Macro macro : macros){
-     listBox.addItem(macro.getNom());
+    	  listBox.addItem(macro.getNom());
       }
+      
     }
     
     /**
-	 * Fill the listbox with items. In this case with Strings.
+	 * Coche la texture en cours et le type de forme en cours
 	 */
     public void checkRadioButton(Screen screen) {
     	String forme = "";
@@ -209,7 +213,7 @@ public class MyScreenController implements ScreenController
    		  	forme = "Rectangle";
    	  	}
 		else if(Constant.FormFull.equals(mode)){
-	   		  forme = "Rectangle";
+	   		  forme = "Rectangle_Plein";
 	   	}else if(Constant.Macro.equals(mode)){
 	   		  forme = "Macro";
 	   	}
