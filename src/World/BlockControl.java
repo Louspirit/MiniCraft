@@ -112,7 +112,7 @@ public class BlockControl implements IBlockControl {
 				put(new Vector3f(x1+i,y1,z1));
 				put(new Vector3f(x1+i,y1,z2));
 				put(new Vector3f(x2-i,y2,z1));
-				put(new Vector3f(x2-i,y2,z1));
+				put(new Vector3f(x2-i,y2,z2));
 			}
 		
 			for (int i=0 ; i <= diffY ; i++) {
