@@ -101,7 +101,6 @@ public class Minicraft extends SimpleApplication{
 		    blockControl.createRectangle(new Vector3f(20+i,5+i,20+i), new Vector3f(32-i,5+i,32-i), true);
 	    	settingPlayer.setTypeBloc(0); // la terre
 	    }
-
 	}
 
 
@@ -170,6 +169,14 @@ public class Minicraft extends SimpleApplication{
     public void simpleUpdate(float tpf)
     {
         playerControl.walk();
+        
+        // delete default flycam wheel mapping
+        if (inputManager.hasMapping("FLYCAM_ZoomIn")) {
+            inputManager.deleteMapping("FLYCAM_ZoomIn");
+        }
+        if (inputManager.hasMapping("FLYCAM_ZoomOut")) {
+            inputManager.deleteMapping("FLYCAM_ZoomOut");
+        }
     }
   
     /** A centred plus sign to help the player aim. */
