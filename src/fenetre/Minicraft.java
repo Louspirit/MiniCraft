@@ -88,7 +88,7 @@ public class Minicraft extends SimpleApplication{
 	    // Initialisation des listeners
 	    blocListener = new BlocListener(mapControl, blockControl);
 	    settingListener = new SettingListener();
-	    menuListener = new MenuListener(niftyDisplay,controller,macros);
+	    menuListener = new MenuListener(niftyDisplay,controller,macros,settingListener);
 	    
 	    setUpKeys();
 	    
@@ -140,11 +140,7 @@ public class Minicraft extends SimpleApplication{
 	    
 	    
 	    inputManager.addMapping("Add", new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)); 
-	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT)); 
-//	    inputManager.addMapping("rotateRight", new MouseAxisTrigger(MouseInput.AXIS_X, true));
-//	    inputManager.addMapping("rotateLeft", new MouseAxisTrigger(MouseInput.AXIS_X, false));
-//	    inputManager.addMapping("rotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-//	    inputManager.addMapping("rotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
+	    inputManager.addMapping("Delete", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 
 	    inputManager.addMapping("Menu", new KeyTrigger(KeyInput.KEY_P));
 	    
@@ -154,7 +150,6 @@ public class Minicraft extends SimpleApplication{
 	    inputManager.addListener(macros, "Add", "Delete", "MacroRecStop", "NextMacro", "PreviousMacro", "PlayMacro");
 	    
 	    inputManager.addListener(settingListener, "SwitchBlocUp", "SwitchBlocDown", "CreateForm", "CreateFormFull");
-	    //inputManager.addListener(playerControl, "rotateLeft");
 	    inputManager.addListener(menuListener, "Menu");
 	}
 

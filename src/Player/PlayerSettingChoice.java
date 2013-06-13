@@ -93,6 +93,10 @@ public class PlayerSettingChoice extends Observable {
 		return path+ mode;
 	}
 	
+	public String getModeOnly() {
+		return mode;
+	}
+	
 	/**
 	 * @param mode the mode to set
 	 */
@@ -108,7 +112,7 @@ public class PlayerSettingChoice extends Observable {
 			isMacro = false;
 		}else if(Constant.Bloc.equals(mode)){
 			isCreatingForm = false;
-			isFormFull = true;
+			isFormFull = false;
 			isMacro = false;
 		}else if(Constant.Macro.equals(mode)){
 			isCreatingForm = false;

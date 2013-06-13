@@ -2,6 +2,7 @@ package fenetre;
 
 import java.util.List;
 
+import listener.SettingListener;
 import macro.Macro;
 
 import util.Constant;
@@ -24,8 +25,8 @@ import com.jme3.renderer.ViewPort;
 public class MyScreenController implements ScreenController
 {   
     protected Minicraft game;
-    private String texture = "Terre";
-    private String mode = "Bloc";
+    private String texture = "";
+    private String mode = "";
     private String macroSelec = "";
     Element exitPopup;
     Element noMacroPopup;
@@ -42,6 +43,8 @@ public class MyScreenController implements ScreenController
      
     public void onStartScreen()   
     {
+    	checkRadioButton(game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen());
+    	fillMyListBox(game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen());
     	System.out.println("onstart");
     }
      
@@ -59,7 +62,6 @@ public class MyScreenController implements ScreenController
 		 	Nifty nifty = game.getMenuListener().getNiftyDisplay().getNifty();
 		 	exitPopup = nifty.createPopup("exitPopup");
 			nifty.showPopup(nifty.getCurrentScreen(), exitPopup.getId(), null);
-			//game.stop();
      }
     
     @NiftyEventSubscriber(id = "BtYes")
@@ -150,13 +152,14 @@ public class MyScreenController implements ScreenController
     	ViewPort guiViewPort = minicraft.getGuiViewPort();
 		FlyByCamera flyCam = minicraft.getFlyByCamera();
 		InputManager inputManager = minicraft.getInputManager();
-		
-    	guiViewPort.clearProcessors();
+		guiViewPort.clearProcessors();
       	flyCam.setEnabled(true);
       	inputManager.setCursorVisible(false);
       	minicraft.showCrosshair();
-      	minicraft.setUpKeys();
-      	minicraft.getMenuListener().setMenuON(false);
+    	minicraft.getMenuListener().setMenuON(false);
+    	game.setUpKeys();
+      	//effacer le screen? 
+//      	game.getMenuListener().getNiftyDisplay().getNifty().exit();
      }
     
     /**
@@ -182,5 +185,38 @@ public class MyScreenController implements ScreenController
     public void onMyListBoxSelectionChanged(final String id, final ListBoxSelectionChangedEvent<String> event) {
       List<String> selection = event.getSelection();
       macroSelec = event.getSelection().get(0);
+    }
+    
+    /**
+     * Check the good radiobuttons
+     */
+    public void checkRadioButton(Screen screen) {
+  	  	String forme = "Bloc" ;
+   	  	String mode = game.getSettingListener().getSetting().getModeOnly();
+  	  	if(Constant.Form.equals(mode)){
+  			forme = "Rectangle";
+  		}else if(Constant.FormFull.equals(mode)){
+  			forme = "Rectangle";
+  		}else if(Constant.Bloc.equals(mode)){
+  			forme = "Bloc";
+  		}else if(Constant.Macro.equals(mode)){
+  			forme = "Macro";
+  		}
+			RadioButton radioboutonf = game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen().findNiftyControl(forme, RadioButton.class);
+			radioboutonf.select();
+  	  	String texture = game.getSettingListener().getSetting().getTypeBloc().toString();
+			RadioButton radioboutont = game.getMenuListener().getNiftyDisplay().getNifty().getCurrentScreen().findNiftyControl(texture, RadioButton.class);
+			radioboutont.select();
+    }
+    
+    /**
+     * Fill the listbox with items. In this case with Strings.
+     */
+    public void fillMyListBox(Screen screen) {
+      ListBox listBox = screen.findNiftyControl("myListBox", ListBox.class);
+      List<Macro> macros = game.getMacroStore().getListe();
+      for(Macro macro : macros){
+    	  listBox.addItem(macro.getNom());
+      }
     }
 }  
