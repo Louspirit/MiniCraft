@@ -197,7 +197,6 @@ public class MyScreenController implements ScreenController
       for(Macro macro : macros){
     	  listBox.addItem(macro.getNom());
       }
-      
     }
     
     /**

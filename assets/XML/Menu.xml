@@ -67,6 +67,10 @@ sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
 				</panel>
 				<panel id="p_mil1d2" childLayout="vertical" paddingLeft="60%">
 					    <panel childLayout="horizontal" >
+					      <control name="label" text="Bois"/>
+					      <control name="radioButton" id="Bois" group="texture_bloc" />
+					    </panel>
+					    <panel childLayout="horizontal" >
 					      <control name="label" text="Eau"/>
 					      <control name="radioButton" id="Eau" group="texture_bloc" />
 					    </panel>
