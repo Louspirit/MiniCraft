@@ -3,10 +3,12 @@ Minicraft
 
 Projet du jeu Minicraft.
 
+
 Requis :
 --------
 * Java 7
 * jMonkeyEngine 3 (build 2013-05-21)
+Pour pouvoir exécuter le code : prendre les lib qui sont sur Git :  https://github.com/Louspirit/MiniCraft
 
 Touches :
 ---------
